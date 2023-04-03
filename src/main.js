@@ -2,8 +2,25 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-
+import Http from "./tool/http";
+window.$http = Http;
 Vue.config.productionTip = false;
+// PC端按需引入element
+import { Select, Option, OptionGroup, Pagination, Tooltip, Upload, Carousel, CarouselItem, Form, FormItem, Input, Popover, Tree } from "element-ui";
+
+Vue.use(Select)
+  .use(Option)
+  .use(OptionGroup)
+  .use(Pagination)
+  .use(Tooltip)
+  .use(Upload)
+  .use(Carousel)
+  .use(CarouselItem)
+  .use(Form)
+  .use(FormItem)
+  .use(Input)
+  .use(Popover)
+  .use(Tree);
 // vant的弹窗组件 $dialog
 // 按需引入vant组件
 import {

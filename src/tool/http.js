@@ -1,5 +1,9 @@
 module.exports = {
   get(url, params, message) {
+    if (!url) {
+      console.log("输入url为空");
+      return;
+    }
     url = url + '?min=pc';
     console.log(url)
     if (params) {
@@ -20,16 +24,7 @@ module.exports = {
         credentials: "include"
       })
         .then(response => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            reject({ status: response.status });
-          }
-        })
-        .then(response => {
           console.log(response)
-        })
-        .then(response => {
           resolve(response);
         })
         .catch(err => {
@@ -38,4 +33,33 @@ module.exports = {
         });
     });
   },
+  post(url, formData, message, flag, pc_type) {
+    if (!url) {
+      console.log("输入url为空");
+      return;
+    }
+    url = url + '?min=pc';
+    let headers = {
+      "Content-Type": "application/json",
+      // Authorization: "Basic " + base64_encode(uid + ":" + webToken)
+    };
+    return new Promise((resolve, reject) => {
+      fetch(url, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(formData),
+        credentials: "include",
+      })
+        .then(response =>{
+          if (response.ok) {
+            return response.json();
+          } else {
+            reject({ status: response.status });
+          }
+        })
+        .then(response => {
+          console.log(response,'postMethods')
+        })
+    })
+  }
 };
