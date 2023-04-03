@@ -5,11 +5,16 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 const routes = [
-  // {
-  //   path: "/",
-  //   name: "home",
-  //   component: HomeView,
-  // },
+  {
+    path: "/pcHome",
+    name: "pcHome",
+    component: () =>
+      import("../views/pc/pcHome.vue"),
+    meta: {
+      title: '首页',
+      isPC: true
+    }
+  },
   {
     path: "/pcHome",
     name: "pcHome",
