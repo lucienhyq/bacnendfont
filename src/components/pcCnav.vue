@@ -1,7 +1,7 @@
 <template>
   <div class="pccNav">
     <div class="pccNavTab">
-      <el-col :span="12">
+      <el-col :span="24">
         <h5>默认颜色</h5>
         <el-menu
           default-active="2"
