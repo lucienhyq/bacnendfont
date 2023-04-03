@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/pcHome",
+    path: "/",
     name: "pcHome",
     component: () =>
       import("../views/pc/pcHome.vue"),
@@ -25,6 +25,13 @@ const routes = [
       isPC: true
     }
   },
+  {
+    path:"/login",
+    name:"login",
+    component:()=>{
+      import("../views/pc/login.vue")
+    }
+  }
 ];
 
 const router = new VueRouter({

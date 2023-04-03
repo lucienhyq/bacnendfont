@@ -5,22 +5,9 @@ import store from "./store";
 import Http from "./tool/http";
 window.$http = Http;
 Vue.config.productionTip = false;
-// PC端按需引入element
-import { Select, Option, OptionGroup, Pagination, Tooltip, Upload, Carousel, CarouselItem, Form, FormItem, Input, Popover, Tree } from "element-ui";
-
-Vue.use(Select)
-  .use(Option)
-  .use(OptionGroup)
-  .use(Pagination)
-  .use(Tooltip)
-  .use(Upload)
-  .use(Carousel)
-  .use(CarouselItem)
-  .use(Form)
-  .use(FormItem)
-  .use(Input)
-  .use(Popover)
-  .use(Tree);
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 // vant的弹窗组件 $dialog
 // 按需引入vant组件
 import {

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div v-if="$route.meta.isPC" style="width: 100%; height: 100vh; display: flex; flex-direction: column">
-      <pcNav></pcNav>
+      <topNav></topNav>
       <div :class="[$route.meta.isPC ? 'pcStyle' : '']">
-        <pcCnav></pcCnav>
+        <leftNav></leftNav>
         <keep-alive>
           <router-view style="flex: 1" />
         </keep-alive>
@@ -12,13 +12,13 @@
   </div>
 </template>
 <script>
-import pcNav from "@/components/pcNav.vue";
-import pcCnav from "@/components/pcCnav.vue";
+import topNav from "@/components/pcNav.vue";
+import leftNav from "@/components/pcCnav.vue";
 export default {
   data() {
     return {};
   },
-  components: { pcNav, pcCnav },
+  components: { topNav, leftNav },
   mounted() {
     // this.getData();
   },
@@ -42,5 +42,6 @@ body {
   // margin: 0 auto;
   flex: 1;
   display: flex;
+  background: #eff3f6;
 }
 </style>
