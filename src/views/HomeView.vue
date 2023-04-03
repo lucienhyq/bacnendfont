@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <van-nav-bar title="标题" left-text="返回" right-text="按钮" left-arrow />
+    HomeView
   </div>
 </template>
 
@@ -14,5 +14,6 @@ export default {
   components: {
     HelloWorld,
   },
+  mounted() {},
 };
 </script>

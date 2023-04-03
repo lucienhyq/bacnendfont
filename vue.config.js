@@ -1,11 +1,5 @@
 // externals
-const externals = {
-  AMap: "window.AMap",
-  vue: "Vue",
-  "vue-router": "VueRouter",
-  vuex: "Vuex",
-  axios: "axios"
-};
+
 const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -25,7 +19,4 @@ module.exports = defineConfig({
     }
   },
   lintOnSave: false,
-  configureWebpack:config => {
-    config.externals = externals;
-  },
 });
