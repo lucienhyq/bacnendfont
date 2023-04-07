@@ -46,6 +46,9 @@ export default {
   .pccNavTab {
     height: 100%;
     // width: 10rem;
+    .el-menu{
+      border-right: none;
+    }
   }
 }
 </style>

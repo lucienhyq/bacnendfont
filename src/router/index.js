@@ -10,7 +10,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: pcHome,
+    component: HomeView,
     meta: {
       title: '首页',
       isPC: true
