@@ -1,5 +1,7 @@
 <template>
-  <div class="loginPage"></div>
+  <div class="loginPage">
+    登录页面
+  </div>
 </template>
 <script>
   export default {
