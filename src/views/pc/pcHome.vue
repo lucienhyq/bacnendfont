@@ -1,6 +1,7 @@
 <template>
   <div class="pcHome">
-    PC首页
+    
+    <span @click="tapurl">PC首页</span>
   </div>
 </template>
 <script>
@@ -12,6 +13,10 @@ export default {
     this.getData();
   },
   methods: {
+    tapurl(){
+      console.log('dasdasd')
+      this.$router.replace('Login');
+    },  
     getData() {
       $http
         .post("api/apitest/firstHome", {}, "获取中")

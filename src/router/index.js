@@ -12,28 +12,28 @@ const routes = [
     name: "home",
     component: HomeView,
     meta: {
-      title: '首页',
-      isPC: true
-    }
+      title: "首页",
+      isPC: true,
+    },
   },
   {
     path: "/pcHome",
     name: "pcHome",
     component: pcHome,
     meta: {
-      title: '首页',
-      isPC: true
-    }
+      title: "首页",
+      isPC: true,
+    },
   },
   {
-    path:"/login",
-    name:"login",
+    path: "/login",
+    name: "login",
     component:login,
     meta: {
-      title: '首页',
-      isPC: true
-    }
-  }
+      title: "登录",
+      isPC: true,
+    },
+  },
 ];
 
 const router = new VueRouter({
