@@ -1,15 +1,16 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import HomeView from "../views/HomeView.vue";
+import HomeView from "../views/HomeView.vue";
+import pcHome from "../views/pc/pcHome.vue";
+import login from "../views/pc/login.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "pcHome",
-    component: () =>
-      import("../views/pc/pcHome.vue"),
+    name: "home",
+    component: pcHome,
     meta: {
       title: '首页',
       isPC: true
@@ -18,8 +19,7 @@ const routes = [
   {
     path: "/pcHome",
     name: "pcHome",
-    component: () =>
-      import("../views/pc/pcHome.vue"),
+    component: pcHome,
     meta: {
       title: '首页',
       isPC: true
@@ -28,8 +28,10 @@ const routes = [
   {
     path:"/login",
     name:"login",
-    component:()=>{
-      import("../views/pc/login.vue")
+    component:login,
+    meta: {
+      title: '首页',
+      isPC: true
     }
   }
 ];
