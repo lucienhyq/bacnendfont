@@ -19,7 +19,7 @@ export default {
     },  
     getData() {
       $http
-        .post("api/apitest/firstHome", {}, "获取中")
+        .post("api/checkLoginUser", {}, "获取中")
         .then((response) => {
           console.log(response);
         })

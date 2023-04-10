@@ -9,8 +9,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "pcHome",
+    component: pcHome,
     meta: {
       title: "首页",
       isPC: true,

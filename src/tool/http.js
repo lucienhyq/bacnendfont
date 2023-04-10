@@ -1,5 +1,6 @@
 module.exports = {
   get(url, params, message) {
+    let webToken = localStorage.getItem("refereesToken");
     if (!url) {
       console.log("输入url为空");
       return;
@@ -15,7 +16,7 @@ module.exports = {
     }
     let headers = {
       "Content-Type": "application/json",
-      // Authorization: "Basic " + base64_encode(uid + ":" + webToken)
+      Authorization: "Bearer " + webToken
     };
     return new Promise(function (resolve, reject) {
       fetch(url, {
@@ -23,6 +24,13 @@ module.exports = {
         headers: headers,
         credentials: "include"
       })
+        .then(response => {
+          if (response.msg == "请登录" && response.result == 0) {
+            // this.$router.push("login")
+            console.log('dddddddddddddlogin', `${window.location.href}login`)
+            window.location.href = `${window.location.href}login`;
+          }
+        })
         .then(response => {
           console.log(response)
           resolve(response);
@@ -38,10 +46,11 @@ module.exports = {
       console.log("输入url为空");
       return;
     }
+    let webToken = localStorage.getItem("refereesToken");
     url = url + '?min=pc';
     let headers = {
       "Content-Type": "application/json",
-      // Authorization: "Basic " + base64_encode(uid + ":" + webToken)
+      Authorization: "Bearer " + webToken
     };
     return new Promise((resolve, reject) => {
       fetch(url, {
@@ -50,15 +59,23 @@ module.exports = {
         body: JSON.stringify(formData),
         credentials: "include",
       })
-        .then(response =>{
-          if (response.ok) {
-            return response.json();
-          } else {
-            reject({ status: response.status });
+        // .then(response => {
+        //   if (response.ok) {
+        //     return response.json();
+        //   } else {
+        //     reject({ status: response.status });
+        //   }
+        // })
+        .then(response => {
+          console.log(response)
+          if (response.msg == "请登录" && response.result == 0) {
+            // this.$router.push("login")
+            console.log('dddddddddddddlogin',`${window.location.protocol}${window.location.host}/#/login`)
+            window.location.href = `${window.location.protocol}/#/login`;
           }
         })
         .then(response => {
-          console.log(response,'postMethods')
+          resolve(response);
         })
     })
   }
