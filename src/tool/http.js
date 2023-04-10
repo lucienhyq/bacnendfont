@@ -25,6 +25,13 @@ module.exports = {
         credentials: "include"
       })
         .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            reject({ status: response.status });
+          }
+        })
+        .then(response => {
           if (response.msg == "请登录" && response.result == 0) {
             // this.$router.push("login")
             console.log('dddddddddddddlogin', `${window.location.href}login`)
@@ -59,20 +66,18 @@ module.exports = {
         body: JSON.stringify(formData),
         credentials: "include",
       })
-        // .then(response => {
-        //   if (response.ok) {
-        //     return response.json();
-        //   } else {
-        //     reject({ status: response.status });
-        //   }
-        // })
         .then(response => {
-          console.log(response)
-          if (response.msg == "请登录" && response.result == 0) {
-            // this.$router.push("login")
-            console.log('dddddddddddddlogin',`${window.location.protocol}${window.location.host}/#/login`)
+          if (response.ok) {
+            return response.json();
+          } else {
+            reject({ status: response.status });
+          }
+        })
+        .then(response => {
+          if ((response.msg == "请登录" || response.msg == "未登录")  && response.result == 0) {
             window.location.href = `${window.location.protocol}/#/login`;
           }
+          return response
         })
         .then(response => {
           resolve(response);

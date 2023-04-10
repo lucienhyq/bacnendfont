@@ -1,7 +1,6 @@
 <template>
   <div class="pcHome">
     
-    <span @click="tapurl">PC首页</span>
   </div>
 </template>
 <script>

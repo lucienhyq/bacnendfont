@@ -45,11 +45,9 @@ export default {
       $http
         .post("api/login", { user_name: this.user, password: this.password }, "获取中")
         .then((response) => {
-          console.log(response)
           if(response.result == 1){
-            console.log(response.data.token)
             window.localStorage.setItem('refereesToken',response.data.token);
-            console.log(window.localStorage.getItem('refereesToken'))
+            this.$router.push("pcHome")
           }
         })
         .catch((err) => {
