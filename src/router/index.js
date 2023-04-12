@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import pcHome from "../views/pc/pcHome.vue";
 import login from "../views/pc/login.vue";
+import goodsPage from "../views/pc/goods.vue";
 
 Vue.use(VueRouter);
 
@@ -26,9 +27,18 @@ const routes = [
     },
   },
   {
+    path: "/goods",
+    name: "goods",
+    component: goodsPage,
+    meta: {
+      title: "商品",
+      isPC: true,
+    },
+  },
+  {
     path: "/login",
     name: "login",
-    component:login,
+    component: login,
     meta: {
       title: "登录",
       isPC: true,

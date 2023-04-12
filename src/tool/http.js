@@ -24,19 +24,20 @@ module.exports = {
         headers: headers,
         credentials: "include"
       })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            reject({ status: response.status });
-          }
-        })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          reject({ status: response.status });
+        }
+      })
         .then(response => {
           if (response.msg == "请登录" && response.result == 0) {
             // this.$router.push("login")
             console.log('dddddddddddddlogin', `${window.location.href}login`)
             window.location.href = `${window.location.href}login`;
           }
+          return response
         })
         .then(response => {
           console.log(response)
