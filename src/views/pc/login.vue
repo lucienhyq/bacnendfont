@@ -43,7 +43,7 @@ export default {
   methods: {
     loginMethod() {
       $http
-        .post("api/login", { user_name: this.user, password: this.password }, "获取中")
+        .post("login", { user_name: this.user, password: this.password }, "获取中")
         .then((response) => {
           if(response.result == 1){
             window.localStorage.setItem('refereesToken',response.data.token);

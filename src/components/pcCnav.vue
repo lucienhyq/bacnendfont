@@ -3,9 +3,11 @@
     <div class="pccNavTab">
       <el-col>
         <el-menu :default-active="inds" background-color="#545c64" class="el-menu-vertical-demo">
-          <el-menu-item :index="String(index)" v-for="(item, index) in routearr" :key="index" @click="tapMenu($event, item.name)">
-            <span slot="title">{{ item.meta.title }}</span>
-          </el-menu-item>
+          <template v-for="(item, index) in routearr">
+            <el-menu-item :index="String(index)" v-if="item.meta.nav" :key="index" @click="tapMenu($event, item.name)">
+              <span slot="title">{{ item.meta.title }}</span>
+            </el-menu-item>
+          </template>
         </el-menu>
       </el-col>
     </div>
@@ -23,13 +25,14 @@ export default {
   },
   mounted() {
     this.routearr = this.$router.options.routes;
+    console.log(this.routearr, "ddddddd");
     let arr = this.routearr.filter((item) => {
       return item.path != "/" && item.path != "/login";
     });
     let inds = "";
     this.routearr = arr;
     this.routearr.forEach((item, index) => {
-      if (item.name == this.$route.name) {
+      if (item.name == this.$route.name && item.nav != false) {
         inds = index;
       }
     });
@@ -40,6 +43,7 @@ export default {
       console.log(to.name);
       let inds;
       this.routearr.forEach((item, index) => {
+        console.log(item);
         if (item.name == to.name) {
           inds = index;
         }

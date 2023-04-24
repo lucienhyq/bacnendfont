@@ -29,7 +29,7 @@ export default {
     },
     getData() {
       $http
-        .post("api/checkLoginUser", {}, "获取中")
+        .post("checkLoginUser", {}, "获取中")
         .then((response) => {
           console.log(response);
         })
@@ -39,7 +39,7 @@ export default {
     },
     getVisitor() {
       $http
-        .get("api/apitest/get_userAccess", {}, "获取中")
+        .get("apitest/get_userAccess", {}, "获取中")
         .then((response) => {
           this.visitorData = response.data;
         })

@@ -1,6 +1,6 @@
 <template>
   <div class="goodsBox">
-    <div class="btnAdd">添加商品</div>
+    <div class="btnAdd" @click="toAddGood">添加商品</div>
     <div class="searchBox">
       <div class="dline">
         <el-input v-model="goodname" placeholder="请输入商品名称/商品ID"></el-input>
@@ -17,6 +17,11 @@ export default {
       goodname: "",
     };
   },
+  methods:{
+    toAddGood(){
+      this.$router.replace({name:'goodsEdit'})
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

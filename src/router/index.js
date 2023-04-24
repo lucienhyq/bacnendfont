@@ -4,13 +4,14 @@ import HomeView from "../views/HomeView.vue";
 import pcHome from "../views/pc/pcHome.vue";
 import login from "../views/pc/login.vue";
 import goodsPage from "../views/pc/goods.vue";
+import goodsEdit from "../views/pc/goodsEdit.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "pcHome",
+    name: "",
     component: pcHome,
     meta: {
       title: "首页",
@@ -24,6 +25,7 @@ const routes = [
     meta: {
       title: "首页",
       isPC: true,
+      nav:true
     },
   },
   {
@@ -33,6 +35,17 @@ const routes = [
     meta: {
       title: "商品",
       isPC: true,
+      nav:true
+    },
+  },
+  {
+    path: "/goodsEdit",
+    name: "goodsEdit",
+    component: goodsEdit,
+    meta: {
+      title: "商品",
+      isPC: true,
+      nav:false
     },
   },
   {
