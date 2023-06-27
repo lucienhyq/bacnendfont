@@ -3,15 +3,15 @@
     <div v-if="$route.meta.isPC && $route.name != 'login'" style="width: 100%; height: 100vh; display: flex; flex-direction: column">
       <topNav></topNav>
       <div :class="[$route.meta.isPC ? 'pcStyle' : '']">
-        <leftNav></leftNav>
+        <leftNav style="flex-shrink: 0"></leftNav>
         <keep-alive>
-          <router-view style="flex: 1" />
+          <router-view style="flex: 1; overflow: hidden" />
         </keep-alive>
       </div>
     </div>
     <div class="loginPage" v-if="$route.meta.isPC && $route.name == 'login'">
       <keep-alive>
-        <router-view/>
+        <router-view />
       </keep-alive>
     </div>
   </div>
@@ -22,7 +22,7 @@ import leftNav from "@/components/pcCnav.vue";
 export default {
   data() {
     return {
-      routeNow:''
+      routeNow: "",
     };
   },
   components: { topNav, leftNav },

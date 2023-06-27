@@ -71,9 +71,10 @@ export default {
   overflow: hidden;
   .pccNavTab {
     height: 100%;
-    // width: 10rem;
+    width: 7rem;
     .el-menu {
       border-right: none;
+      text-align: center;
     }
   }
 }

@@ -14,7 +14,7 @@ import visitor from "@/components/visitor";
 export default {
   data() {
     return {
-      visitorData:[]
+      visitorData: [],
     };
   },
   components: { visitor },

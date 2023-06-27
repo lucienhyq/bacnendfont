@@ -5,6 +5,11 @@ module.exports = {
       console.log("输入url为空");
       return;
     }
+    if (process.env.NODE_ENV === "development") {
+      url = '/api/' + url
+    } else {
+      url = '/' + url
+    }
     url = url + '?min=pc';
     console.log(url)
     if (params) {
@@ -24,13 +29,13 @@ module.exports = {
         headers: headers,
         credentials: "include"
       })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          reject({ status: response.status });
-        }
-      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            reject({ status: response.status });
+          }
+        })
         .then(response => {
           if (response.msg == "请登录" && response.result == 0) {
             // this.$router.push("login")
@@ -55,6 +60,11 @@ module.exports = {
       return;
     }
     let webToken = localStorage.getItem("refereesToken");
+    if (process.env.NODE_ENV === "development") {
+      url = '/api/' + url
+    } else {
+      url = '/' + url
+    }
     url = url + '?min=pc';
     let headers = {
       "Content-Type": "application/json",
@@ -75,7 +85,7 @@ module.exports = {
           }
         })
         .then(response => {
-          if ((response.msg == "请登录" || response.msg == "未登录")  && response.result == 0) {
+          if ((response.msg == "请登录" || response.msg == "未登录") && response.result == 0) {
             window.location.href = `${window.location.protocol}/#/login`;
           }
           return response

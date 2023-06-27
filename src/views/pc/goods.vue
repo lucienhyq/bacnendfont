@@ -5,9 +5,33 @@
       <div class="dline">
         <el-input v-model="goodname" placeholder="请输入商品名称/商品ID"></el-input>
       </div>
-
       <div class="btn">搜索</div>
     </div>
+    <el-table :data="tableData" style="width: 100%">
+      <el-table-column prop="id" label="ID" width="60"> </el-table-column>
+      <el-table-column prop="title" label="标题" width="200"> </el-table-column>
+      <el-table-column prop="goodimg" label="封面" width="200">
+        <template slot-scope="scope">
+          <img :src="scope.row.goodimg" class="imageS" alt="" />
+        </template>
+      </el-table-column>
+      <el-table-column prop="goodStatus" label="商品类型">
+        <template slot-scope="scope">
+          <span>{{ scope.row.goodStatus == 1 ? "普通商品" : "预约商品" }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="shelfStatus" label="是否上架">
+        <template slot-scope="scope">
+          <el-switch v-model="scope.row.shelfStatus" @change="updateOne(scope.row)"></el-switch>
+        </template>
+      </el-table-column>
+      <el-table-column fixed="right" label="操作" width="100">
+        <template slot-scope="scope">
+          <!-- <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button> -->
+          <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 <script>
@@ -15,19 +39,54 @@ export default {
   data() {
     return {
       goodname: "",
+      tableData: [],
+      total: 0,
     };
   },
-  methods:{
-    toAddGood(){
-      this.$router.replace({name:'goodsEdit'})
-    }
-  }
+  activated() {
+    this.getData();
+  },
+  methods: {
+    updateOne(item) {
+      console.log(item);
+      let json = { id: item.id, shelfStatus: item.shelfStatus ? 1 : 2 };
+      console.log(json);
+      $http
+        .post("courseList_updateOne", json, "获取中")
+        .then((response) => {
+          console.log(response.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    toAddGood() {
+      this.$router.replace({ name: "goodsEdit" });
+    },
+    getData() {
+      $http
+        .post("courseList", {}, "获取中")
+        .then((response) => {
+          console.log(response.data.data);
+          this.tableData = response.data.data;
+          this.total = response.data.total;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
 .goodsBox {
   padding: 30px;
   box-sizing: border-box;
+  .imageS {
+    width: 160px;
+    height: 160px;
+    border-radius: 8px;
+  }
   .btnAdd {
     width: 6rem;
     height: 2rem;

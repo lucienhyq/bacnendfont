@@ -8,7 +8,7 @@
             <el-input v-model="form.title" style="width: 300px" placeholder="请输入商品标题"></el-input>
           </el-form-item>
           <el-form-item label="商品价格">
-            <el-input v-model="form.course_price" style="width: 300px" placeholder="请输入商品价格"></el-input>
+            <el-input v-model="form.course_price" style="width: 300px" placeholder="请输入商品价格" type='number'></el-input>
           </el-form-item>
           <el-form-item label="商品是否上架">
             <el-switch v-model="form.shelfStatus"> </el-switch>
@@ -20,7 +20,7 @@
             </el-upload>
           </el-form-item>
           <el-form-item label="商品库存">
-            <el-input v-model="form.inventory" style="width: 300px" placeholder="请输入商品库存"></el-input>
+            <el-input v-model="form.inventory" style="width: 300px" placeholder="请输入商品库存" type='number'></el-input>
           </el-form-item>
           <el-form-item label="商品详情">
             <quillEditor :contenInfo="form.conten" @quillBlur="quillBlur"></quillEditor>
