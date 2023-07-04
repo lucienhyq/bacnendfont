@@ -1,19 +1,28 @@
 <template>
-  <div id="app">
-    <div v-if="$route.meta.isPC && $route.name != 'login'" style="width: 100%; height: 100vh; display: flex; flex-direction: column">
-      <topNav></topNav>
-      <div :class="[$route.meta.isPC ? 'pcStyle' : '']">
-        <leftNav style="flex-shrink: 0"></leftNav>
+  <div id="app" :class="[$route.meta.isPC ? 'pcStyle_bg' : 'pcStyle_bg_none']">
+    <template v-if="$route.meta.isPC">
+      <div v-if="$route.name != 'login'" style="width: 100%; height: 100vh; display: flex; flex-direction: column">
+        <topNav></topNav>
+        <div :class="[$route.meta.isPC ? 'pcStyle' : '']">
+          <leftNav style="flex-shrink: 0"></leftNav>
+          <keep-alive>
+            <router-view style="flex: 1; overflow: hidden" />
+          </keep-alive>
+        </div>
+      </div>
+      <div class="loginPage" v-if="$route.name == 'login'">
         <keep-alive>
-          <router-view style="flex: 1; overflow: hidden" />
+          <router-view />
         </keep-alive>
       </div>
-    </div>
-    <div class="loginPage" v-if="$route.meta.isPC && $route.name == 'login'">
-      <keep-alive>
-        <router-view />
-      </keep-alive>
-    </div>
+    </template>
+    <template v-else>
+      <div style="width: 375px; min-height: 100vh; margin: 0 auto">
+        <keep-alive>
+          <router-view />
+        </keep-alive>
+      </div>
+    </template>
   </div>
 </template>
 <script>
@@ -44,6 +53,21 @@ export default {
 body {
   padding: 0;
   margin: 0;
+}
+#app {
+  min-height: 100vh;
+}
+#app #contenBox_h img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  border: 0 !important;
+}
+.pcStyle_bg {
+  background: #fff;
+}
+.pcStyle_bg_none {
+  background: #f6f6f6;
 }
 .pcStyle {
   // width: 1200px;
