@@ -5,9 +5,9 @@ import pcHome from "../views/pc/pcHome.vue";
 import login from "../views/pc/login.vue";
 import goodsPage from "../views/pc/goods.vue";
 import goodsEdit from "../views/pc/goodsEdit.vue";
-import indexHome from "../views/phone/indexHome.vue"; 
-import goodDetail from "../views/phone/goodDetail.vue"; 
-
+import indexHome from "../views/phone/indexHome.vue";
+import goodDetail from "../views/phone/goodDetail.vue";
+import frintend from "./frontend";
 Vue.use(VueRouter);
 
 const routes = [
@@ -77,7 +77,7 @@ const routes = [
       isPC: false,
     },
   },
-];
+].concat(frintend);
 
 const router = new VueRouter({
   routes,

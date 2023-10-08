@@ -67,8 +67,8 @@ export default {
       $http
         .post("courseList", {}, "获取中")
         .then((response) => {
-          console.log(response.data.data);
-          this.tableData = response.data.data;
+          console.log(response.data);
+          this.tableData = response.data.list;
           this.total = response.data.total;
         })
         .catch((err) => {

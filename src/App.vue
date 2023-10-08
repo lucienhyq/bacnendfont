@@ -17,7 +17,7 @@
       </div>
     </template>
     <template v-else>
-      <div style="width: 375px; min-height: 100vh; margin: 0 auto">
+      <div style="width: 375px; margin: 0 auto">
         <keep-alive>
           <router-view />
         </keep-alive>
@@ -55,7 +55,6 @@ body {
   margin: 0;
 }
 #app {
-  min-height: 100vh;
 }
 #app #contenBox_h img {
   max-width: 100% !important;
