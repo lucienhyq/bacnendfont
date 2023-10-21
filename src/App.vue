@@ -1,5 +1,6 @@
 <template>
   <div id="app" :class="[$route.meta.isPC ? 'pcStyle_bg' : 'pcStyle_bg_none']">
+    <!-- pc端管理后台 -->
     <template v-if="$route.meta.isPC">
       <div v-if="$route.name != 'login'" style="width: 100%; height: 100vh; display: flex; flex-direction: column">
         <topNav></topNav>
@@ -16,6 +17,7 @@
         </keep-alive>
       </div>
     </template>
+    <!-- 移动端 -->
     <template v-else>
       <div style="width: 375px; margin: 0 auto">
         <keep-alive>

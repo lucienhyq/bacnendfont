@@ -2,7 +2,7 @@
   <div class="pcNav">
     <div class="pcNavTab">
       <div class="homePage">
-        <img src="" alt="获取图片失败" />
+        <img src="../assets/logo.png" alt="" />
       </div>
       <div class="right">
         <div class="right_box">
@@ -38,8 +38,7 @@ export default {
     box-sizing: border-box;
     .homePage {
       width: 10rem;
-      height: 5rem;
-      background: red;
+      height: 3rem;
       border-radius: 0.725rem;
       img {
         border-radius: 0.725rem;

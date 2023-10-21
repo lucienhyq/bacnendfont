@@ -2,9 +2,18 @@
   <div class="pccNav">
     <div class="pccNavTab">
       <el-col>
-        <el-menu :default-active="inds" background-color="#545c64" class="el-menu-vertical-demo">
+        <el-menu
+          :default-active="inds"
+          background-color="#545c64"
+          class="el-menu-vertical-demo"
+        >
           <template v-for="(item, index) in routearr">
-            <el-menu-item :index="String(index)" v-if="item.meta.nav" :key="index" @click="tapMenu($event, item.name)">
+            <el-menu-item
+              :index="String(index)"
+              v-if="item.meta.nav"
+              :key="index"
+              @click="tapMenu($event, item.name)"
+            >
               <span slot="title">{{ item.meta.title }}</span>
             </el-menu-item>
           </template>
@@ -32,10 +41,16 @@ export default {
     let inds = "";
     this.routearr = arr;
     this.routearr.forEach((item, index) => {
+      console.log(index, "ddddddddd111");
       if (item.name == this.$route.name && item.nav != false) {
         inds = index;
       }
     });
+    console.log(this.$route.path);
+    if (this.$route.path == "/") {
+      console.log("2wswwww");
+      inds = 0;
+    }
     this.inds = String(inds);
   },
   watch: {
