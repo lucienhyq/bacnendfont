@@ -27,8 +27,15 @@
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
-          <!-- <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button> -->
-          <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+          <div>
+            <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+          </div>
+          <div>
+            <el-button @click="delGood(scope.row)" type="text" size="small">删除商品</el-button>
+          </div>
+          <div>
+            <el-button @click="handleClick(scope.row, 'read')" type="text" size="small">查看商品</el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -47,14 +54,32 @@ export default {
     this.getData();
   },
   methods: {
+    delGood(row) {
+      $http
+        .get("courseDelete", { goods_id: row.id }, "获取中")
+        .then((response) => {
+          this.$message.success(response.msg);
+          this.getData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    handleClick(e, key = "") {
+      console.log(e, key);
+      if (key) {
+        this.$router.push({ path: `/goodsEdit/${e.id}`, query: { tag: "look" } });
+      } else {
+        this.$router.push({ path: `/goodsEdit/${e.id}` });
+      }
+    },
     updateOne(item) {
       console.log(item);
-      let json = { id: item.id, shelfStatus: item.shelfStatus ? 1 : 2 };
-      console.log(json);
+      let json = { id: item.id, form: { shelfStatus: item.shelfStatus ? 1 : 2 } };
       $http
         .post("courseList_updateOne", json, "获取中")
         .then((response) => {
-          console.log(response.data.data);
+          this.$message.success(response.msg);
         })
         .catch((err) => {
           console.log(err);

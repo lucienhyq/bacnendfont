@@ -3,7 +3,7 @@
     <div class="login-container">
       <div class="login-container-con">
         <div class="login-container-con_left">
-          <img src="" alt="" />
+          <img src="../../assets/logo.png" alt="" />
           <div class="span">乐善里后台</div>
         </div>
       </div>
@@ -11,7 +11,7 @@
         <el-row :gutter="20">
           <el-col :span="16">
             <div class="grid-content">
-              <img src="" alt="" />
+              <img src="../../assets/bg.jpg" alt="" />
             </div>
           </el-col>
           <el-col :span="8">
@@ -48,6 +48,8 @@ export default {
           if(response.result == 1){
             window.localStorage.setItem('refereesToken',response.data.token);
             this.$router.push("pcHome")
+          }else{
+            this.$message.success(response.msg);
           }
         })
         .catch((err) => {
@@ -89,6 +91,7 @@ export default {
     img {
       width: 100%;
       height: 100%;
+      border-radius: 5px;
     }
   }
   .bg-purple {

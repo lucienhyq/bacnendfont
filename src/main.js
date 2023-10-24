@@ -7,6 +7,10 @@ window.$http = Http;
 Vue.config.productionTip = false;
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import VueQuillEditor from "vue-quill-editor";
+Vue.use(VueQuillEditor);
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
 Vue.use(ElementUI);
 // vant的弹窗组件 $dialog
 // 按需引入vant组件

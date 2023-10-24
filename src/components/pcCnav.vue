@@ -68,7 +68,9 @@ export default {
   },
   methods: {
     tapMenu(e, name) {
-      this.$router.push(name);
+      console.log(name)
+      this.$router.push({ path: `/${name}` });
+      // this.$router.push(name);
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);

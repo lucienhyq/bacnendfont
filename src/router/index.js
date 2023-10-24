@@ -41,7 +41,7 @@ const routes = [
     },
   },
   {
-    path: "/goodsEdit",
+    path: "/goodsEdit/:id",
     name: "goodsEdit",
     component: goodsEdit,
     meta: {

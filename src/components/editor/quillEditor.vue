@@ -1,5 +1,8 @@
 <template>
   <div class="quillEditor">
+    <el-upload action="http://localhost:3000/posts" list-type="picture-card" :on-success="handlePictureCardPreview" :on-remove="handleRemove" style="display: none">
+      <i class="el-icon-plus quilleditor_img"></i>
+    </el-upload>
     <quill-editor ref="myTextEditor" v-bind:options="editorOption" v-model="content" @change="onEditorChange"> </quill-editor>
   </div>
 </template>
@@ -29,6 +32,14 @@ export default {
     onEditorChange({ editor, html, text }) {
       this.$emit("quillBlur", html);
     },
+    handlePictureCardPreview(e) {
+      let quill = this.$refs.myTextEditor.quill;
+      let length = quill.getSelection().index;
+      console.log(e);
+      quill.insertEmbed(length, "image", e.data);
+      quill.setSelection(length + 1);
+    },
+    handleRemove() {},
   },
   created() {
     // 工具栏配置
@@ -65,6 +76,16 @@ export default {
         // },
         toolbar: {
           container: toolbarOption,
+          handlers: {
+            image: function (value) {
+              if (value) {
+                // 调用iview图片上传
+                document.querySelector(".quilleditor_img").click();
+              } else {
+                this.quill.format("image", false);
+              }
+            },
+          },
         },
       },
     };
