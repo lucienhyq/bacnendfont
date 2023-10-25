@@ -99,7 +99,7 @@ export default {
     position: relative;
     width: 520px;
     max-width: 100%;
-    padding: 30px 35px 0 35px;
+    padding: 30px 35px 30px 35px;
     margin: 0 auto;
     overflow: hidden;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
