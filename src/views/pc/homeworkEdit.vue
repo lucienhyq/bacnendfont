@@ -51,23 +51,7 @@ import quillEditor from "@/components/editor/quillEditor.vue";
 export default {
   data() {
     return {
-      form: {
-        // 商品标题
-        title: "",
-        // 商品价格
-        course_price: "",
-        // 商品详情
-        conten: "",
-        // 商品是否上架
-        shelfStatus: false,
-        // 商品图片
-        goodimg: "",
-        // 库存
-        inventory: "",
-        // 商品类型
-        goodStatus: "2",
-        creatUser: 1,
-      },
+      form: {},
       dialogVisible: false,
       tag: false,
     };
@@ -85,18 +69,10 @@ export default {
   methods: {
     getData() {
       $http
-        .post("courseList", { id: this.$route.params.id }, "获取中")
+        .post("apitest/homeMaking_list", { hmuid: this.$route.params.id }, "获取中")
         .then((response) => {
-          // this.visitorData = response.data;
           console.log(response.data);
-          let _info = response.data.list[0];
-          this.form.title = _info.title;
-          this.form.course_price = Number(_info.course_price);
-          this.form.conten = _info.conten;
-          this.form.shelfStatus = _info.shelfStatus;
-          this.form.goodimg = _info.goodimg;
-          this.form.inventory = _info.inventory;
-          this.form.goodStatus = _info.goodStatus;
+          let _info = response.data;
         })
         .catch((err) => {
           console.log(err);
@@ -121,10 +97,10 @@ export default {
       }
       let json = { form: this.form };
       if (this.$route.params.id) {
-        json.id = this.$route.params.id;
+        json.hmuid = this.$route.params.id;
       }
       $http
-        .post(this.$route.params.id ? "courseList_updateOne" : "courseIndex", json, "获取中")
+        .post(this.$route.params.id ? "courseList_updateOne" : "apitest/homemakingList", json, "获取中")
         .then((response) => {
           this.visitorData = response.data;
           this.$message.success("成功");

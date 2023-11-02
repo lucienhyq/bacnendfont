@@ -2,19 +2,10 @@
   <div class="pccNav">
     <div class="pccNavTab">
       <el-col>
-        <el-menu
-          :default-active="inds"
-          background-color="#545c64"
-          class="el-menu-vertical-demo"
-        >
+        <el-menu :default-active="inds" background-color="#545c64" class="el-menu-vertical-demo" text-color="#fff">
           <template v-for="(item, index) in routearr">
-            <el-menu-item
-              :index="String(index)"
-              v-if="item.meta.nav"
-              :key="index"
-              @click="tapMenu($event, item.name)"
-            >
-              <span slot="title">{{ item.meta.title }}</span>
+            <el-menu-item :index="String(index)" v-if="item.meta.nav" :key="index" @click="tapMenu($event, item.name)">
+              <span slot="title" style="font-size: 1rem">{{ item.meta.title }}</span>
             </el-menu-item>
           </template>
         </el-menu>
@@ -68,7 +59,7 @@ export default {
   },
   methods: {
     tapMenu(e, name) {
-      console.log(name)
+      console.log(name);
       this.$router.push({ path: `/${name}` });
       // this.$router.push(name);
     },
@@ -88,7 +79,7 @@ export default {
   overflow: hidden;
   .pccNavTab {
     height: 100%;
-    width: 7rem;
+    width: 8rem;
     .el-menu {
       border-right: none;
       text-align: center;

@@ -1,40 +1,37 @@
 <template>
   <div class="goodsBox">
-    <div class="btnAdd" @click="toAddGood">添加商品</div>
+    <div class="btnAdd" @click="toAddGood">添加家政人员</div>
     <div class="searchBox">
       <div class="dline">
-        <el-input v-model="goodname" placeholder="请输入商品名称/商品ID"></el-input>
+        <el-input v-model="goodname" placeholder="搜索家政人员昵称/员工ID"></el-input>
       </div>
       <div class="btn">搜索</div>
     </div>
     <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="id" label="ID" width="60"> </el-table-column>
-      <el-table-column prop="title" label="标题" width="200"> </el-table-column>
-      <el-table-column prop="goodimg" label="封面" width="200">
+      <el-table-column prop="hmuid" label="员工ID" width="160"> </el-table-column>
+      <el-table-column prop="realname" label="昵称" width="200"> </el-table-column>
+      <el-table-column prop="avatar" label="封面" width="200">
         <template slot-scope="scope">
-          <img :src="scope.row.goodimg" class="imageS" alt="" />
+          <img :src="scope.row.avatar" class="imageS" alt="" />
         </template>
       </el-table-column>
-      <el-table-column prop="goodStatus" label="商品类型">
+      <el-table-column prop="mobile" label="联系电话"> </el-table-column>
+      <el-table-column prop="creatUid.user_name" label="推荐人"> </el-table-column>
+      <el-table-column prop="clientShow" label="是否在职">
         <template slot-scope="scope">
-          <span>{{ scope.row.goodStatus == 1 ? "普通商品" : "预约商品" }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column prop="shelfStatus" label="是否上架">
-        <template slot-scope="scope">
-          <el-switch v-model="scope.row.shelfStatus" @change="updateOne(scope.row)"></el-switch>
+          <el-switch v-model="scope.row.clientShow" @change="updateOne(scope.row)"></el-switch>
         </template>
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
           <div>
-            <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+            <el-button type="text" size="small" @click="handleClick(scope.row)">编辑资料</el-button>
           </div>
           <div>
-            <el-button @click="delGood(scope.row)" type="text" size="small">删除商品</el-button>
+            <el-button @click="delGood(scope.row)" type="text" size="small">删除</el-button>
           </div>
           <div>
-            <el-button @click="handleClick(scope.row, 'read')" type="text" size="small">查看商品</el-button>
+            <el-button @click="handleClick(scope.row, 'read')" type="text" size="small">查看资料</el-button>
           </div>
         </template>
       </el-table-column>
@@ -68,16 +65,15 @@ export default {
     handleClick(e, key = "") {
       console.log(e, key);
       if (key) {
-        this.$router.push({ path: `/goodsEdit/${e.id}`, query: { tag: "look" } });
+        this.$router.push({ path: `/homeworkEdit/${e.hmuid}`, query: { tag: "look" } });
       } else {
-        this.$router.push({ path: `/goodsEdit/${e.id}` });
+        this.$router.push({ path: `/homeworkEdit/${e.hmuid}` });
       }
     },
     updateOne(item) {
-      console.log(item);
-      let json = { id: item.id, form: { shelfStatus: item.shelfStatus ? 1 : 2 } };
+      let json = { hmuid: item.hmuid, clientShow: item.clientShow };
       $http
-        .post("courseList_updateOne", json, "获取中")
+        .post("/apitest/updateWorkStatus", json, "获取中")
         .then((response) => {
           this.$message.success(response.msg);
         })
@@ -86,15 +82,15 @@ export default {
         });
     },
     toAddGood() {
-      this.$router.replace({ name: "goodsEdit" });
+      this.$router.replace({ name: "homeworkEdit" });
     },
     getData() {
       $http
-        .post("courseList", {}, "获取中")
+        .post("apitest/homeMaking_list", {}, "获取中")
         .then((response) => {
           console.log(response.data);
-          this.tableData = response.data.list;
-          this.total = response.data.total;
+          this.tableData = response.data;
+          this.total = response.data.length;
         })
         .catch((err) => {
           console.log(err);
@@ -113,7 +109,7 @@ export default {
     border-radius: 0.25rem;
   }
   .btnAdd {
-    width: 6rem;
+    width: 8rem;
     height: 2rem;
     display: flex;
     align-items: center;
@@ -121,7 +117,7 @@ export default {
     background: #999999;
     box-sizing: border-box;
     color: #ffffff;
-    border-radius: 0.1563rem;
+    border-radius: 0.35rem;
     margin-bottom: 1rem;
   }
   .searchBox {

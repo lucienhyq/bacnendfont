@@ -7,6 +7,7 @@ import goodsPage from "../views/pc/goods.vue";
 import goodsEdit from "../views/pc/goodsEdit.vue";
 import indexHome from "../views/phone/indexHome.vue";
 import goodDetail from "../views/phone/goodDetail.vue";
+import homework from "../views/pc/homework.vue";
 import frintend from "./frontend";
 Vue.use(VueRouter);
 
@@ -36,6 +37,16 @@ const routes = [
     component: goodsPage,
     meta: {
       title: "商品",
+      isPC: true,
+      nav: true
+    },
+  },
+  {
+    path: "/homework",
+    name: "homework",
+    component: homework,
+    meta: {
+      title: "家政业务",
       isPC: true,
       nav: true
     },

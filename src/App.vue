@@ -68,7 +68,8 @@ body {
   background: #fff;
 }
 .pcStyle_bg_none {
-  background: #f6f6f6;
+  background: #f5f5f5;
+  min-height: 100vh;
 }
 .pcStyle {
   // width: 1200px;
