@@ -10,35 +10,64 @@
       </div>
       <div class="formBox">
         <el-form ref="form" :model="form" label-width="120px" label-position="left">
-          <el-form-item label="商品标题">
-            <el-input v-model="form.title" :disabled="tag" style="width: 300px" placeholder="请输入商品标题"></el-input>
+          <el-form-item label="家政人员名称">
+            <el-input v-model="form.realname" :disabled="tag" style="width: 300px" placeholder="请输入家政人员名称"></el-input>
           </el-form-item>
-          <el-form-item label="商品价格">
+          <!-- <el-form-item label="商品价格">
             <el-input v-model="form.course_price" :disabled="tag" style="width: 300px" placeholder="请输入商品价格"></el-input>
+          </el-form-item> -->
+          <el-form-item label="平台是否显示">
+            <el-switch v-model="form.clientShow" :disabled="tag"> </el-switch>
+            <span class="shelfStatusTxt">{{ form.clientShow ? "上架" : "下架" }}</span>
           </el-form-item>
-          <el-form-item label="商品是否上架">
-            <el-switch v-model="form.shelfStatus" :disabled="tag"> </el-switch>
-            <span class="shelfStatusTxt">{{ form.shelfStatus ? "上架" : "下架" }}</span>
-          </el-form-item>
-          <el-form-item label="商品图片">
+          <el-form-item label="家政人员照片">
             <div class="flex">
-              <img :src="form.goodimg" alt="" v-if="form.goodimg && this.$route.params.id" style="width: 150px; height: 150px" />
+              <img :src="form.avatar" alt="" v-if="form.avatar && this.$route.params.id" style="width: 150px; height: 150px" />
               <el-upload action="http://localhost:3000/posts" list-type="picture-card" v-if="!tag" :on-success="handlePictureCardPreview" :on-remove="handleRemove">
                 <i class="el-icon-plus"></i>
               </el-upload>
             </div>
           </el-form-item>
-          <el-form-item label="商品类型">
-            <el-radio-group v-model="form.goodStatus">
-              <el-radio :label="'1'" :disabled="tag">普通商品</el-radio>
-              <el-radio :label="'2'" :disabled="tag">预约商品</el-radio>
-            </el-radio-group>
+          <el-form-item label="联系电话">
+            <el-input v-model="form.mobile" :disabled="tag" style="width: 300px" placeholder="联系电话"></el-input>
           </el-form-item>
-          <el-form-item label="商品库存">
-            <el-input v-model="form.inventory" :disabled="tag" style="width: 300px" placeholder="请输入商品库存"></el-input>
-          </el-form-item>
-          <el-form-item label="商品详情">
-            <quillEditor :contenInfo="form.conten" :disabled="tag" @quillBlur="quillBlur"></quillEditor>
+          <el-form-item label="工作时间">
+            <div>
+              <div class="addBtn">
+                可预约工作时间段
+                <!-- <i class="el-icon-circle-plus-outline"></i> -->
+              </div>
+              <div class="instreBox">
+                <div class="title">价格：</div>
+                <el-input v-model="workTimeList.price"></el-input>
+                /小时
+              </div>
+              <div class="instreBox">
+                <span>选择时间：</span>
+                <el-time-select
+                  placeholder="开始时间"
+                  v-model="workTimeList.workeStartTime"
+                  :picker-options="{
+                    start: '06:00',
+                    step: '00:15',
+                    end: '23:00',
+                  }"
+                >
+                </el-time-select>
+                --
+                <el-time-select
+                  placeholder="结束时间"
+                  v-model="workTimeList.workeEndTime"
+                  :picker-options="{
+                    start: '06:00',
+                    step: '00:15',
+                    end: '21:00',
+                    minTime: workTimeList.workeStartTime,
+                  }"
+                >
+                </el-time-select>
+              </div>
+            </div>
           </el-form-item>
         </el-form>
       </div>
@@ -47,16 +76,21 @@
   </div>
 </template>
 <script>
-import quillEditor from "@/components/editor/quillEditor.vue";
 export default {
   data() {
     return {
       form: {},
       dialogVisible: false,
       tag: false,
+      workTimeList: { workeStartTime: "", workeEndTime: "", price: "" },
+      pickerOptions: {
+        format: "HH:mm",
+        start: "00:00",
+        step: "00:15",
+        end: "23:30",
+      },
     };
   },
-  components: { quillEditor },
   activated() {
     if (this.$route.params.id) {
       this.getData();
@@ -64,15 +98,15 @@ export default {
     if (this.$route.query) {
       this.tag = this.$route.query.tag == "look" ? true : false;
     }
-    console.log(this.$route.query);
   },
   methods: {
     getData() {
       $http
         .post("apitest/homeMaking_list", { hmuid: this.$route.params.id }, "获取中")
         .then((response) => {
-          console.log(response.data);
           let _info = response.data;
+          this.form = _info;
+          this.workTimeList = _info.workTime
         })
         .catch((err) => {
           console.log(err);
@@ -84,27 +118,44 @@ export default {
       console.log(this.form);
     },
     handlePictureCardPreview(file) {
-      this.form.goodimg = file.data;
+      this.form.avatar = file.data;
       console.log(this.form.goodimg, "goodimg");
     },
     toBlack() {
-      this.$router.push({ name: "goods" });
+      this.$router.push({ name: "homework" });
     },
-    onSubmit() {
+    async onSubmit() {
       if (this.tag) {
-        this.$message.success("查看商品不可编辑");
+        this.$message.error("查看商品不可编辑");
         return;
       }
-      let json = { form: this.form };
+      if (!this.workTimeList.workeStartTime) {
+        this.$message.error("请选择开始时间");
+        return;
+      }
+      if (!this.workTimeList.workeEndTime) {
+        this.$message.error("请选择结束时间");
+        return;
+      }
+      if (!this.workTimeList.price) {
+        this.$message.error("请填写每小时价格");
+        return;
+      }
+      let checkStatus = await this.checkTime(this.workTimeList);
+      if (!checkStatus) return;
+      let json = {};
+      json = this.form;
       if (this.$route.params.id) {
         json.hmuid = this.$route.params.id;
       }
+      json.workTime = this.workTimeList;
+      console.log(json, this.form, checkStatus);
       $http
-        .post(this.$route.params.id ? "courseList_updateOne" : "apitest/homemakingList", json, "获取中")
+        .post(this.$route.params.id ? "apitest/updateWorkStatus" : "apitest/homeMakingAddUser", json, "获取中")
         .then((response) => {
           this.visitorData = response.data;
           this.$message.success("成功");
-          this.$router.replace({ name: "goods" });
+          this.$router.replace({ name: "homework" });
         })
         .catch((err) => {
           console.log(err);
@@ -112,6 +163,22 @@ export default {
     },
     handleRemove(e) {
       console.log(e);
+    },
+    checkTime(obj) {
+      return new Promise((resolve, reject) => {
+        const startTime = new Date(`1970-01-01T${obj.workeStartTime}`);
+        const endTime = new Date(`1970-01-01T${obj.workeEndTime}`);
+
+        const timeDiff = endTime.getTime() - startTime.getTime();
+        const hourDiff = timeDiff / (1000 * 60 * 60);
+
+        if (hourDiff >= 4) {
+          resolve(true);
+        } else {
+          this.$message.error("设置每天工作时间不能小于4小时");
+          resolve(false);
+        }
+      });
     },
   },
 };
@@ -131,6 +198,25 @@ export default {
   margin-top: 20px;
   .shelfStatusTxt {
     color: #999;
+  }
+  .addBtn {
+    font-size: 1.1rem;
+    .el-icon-circle-plus-outline {
+      color: #000;
+      cursor: pointer;
+    }
+  }
+  .instreBox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    .title {
+      flex-shrink: 0;
+    }
+    .el-input {
+      width: 15%;
+    }
   }
 }
 .bgbox {

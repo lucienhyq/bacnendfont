@@ -17,7 +17,7 @@
       </el-table-column>
       <el-table-column prop="mobile" label="联系电话"> </el-table-column>
       <el-table-column prop="creatUid.user_name" label="推荐人"> </el-table-column>
-      <el-table-column prop="clientShow" label="是否在职">
+      <el-table-column prop="clientShow" label="平台是否显示">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.clientShow" @change="updateOne(scope.row)"></el-switch>
         </template>
@@ -53,7 +53,7 @@ export default {
   methods: {
     delGood(row) {
       $http
-        .get("courseDelete", { goods_id: row.id }, "获取中")
+        .post("apitest/homeMakingDeleteUser", { hmuid: row.hmuid }, "获取中")
         .then((response) => {
           this.$message.success(response.msg);
           this.getData();

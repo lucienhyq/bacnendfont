@@ -10,7 +10,7 @@ export default [
     meta: { title: "首页", foot: false, isPC: false }
   },
   {
-    path: "/homeworkEdit/:id",
+    path: "/homeworkEdit/:id?",
     name: "homeworkEdit",
     component: homeworkEdit,
     meta: {
