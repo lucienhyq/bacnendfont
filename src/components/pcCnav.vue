@@ -1,15 +1,20 @@
 <template>
   <div class="pccNav">
+    <div class="logo">
+      <img src="../assets/logo.jpeg" alt="" />
+    </div>
     <div class="pccNavTab">
-      <el-col>
-        <el-menu :default-active="inds" background-color="#545c64" class="el-menu-vertical-demo" text-color="#fff">
-          <template v-for="(item, index) in routearr">
-            <el-menu-item :index="String(index)" v-if="item.meta.nav" :key="index" @click="tapMenu($event, item.name)">
-              <span slot="title" style="font-size: 1rem">{{ item.meta.title }}</span>
-            </el-menu-item>
-          </template>
-        </el-menu>
-      </el-col>
+      <el-row class="tac">
+        <el-col>
+          <el-menu :default-active="inds" background-color="#545c64" class="el-menu-vertical-demo" text-color="#fff">
+            <template v-for="(item, index) in routearr">
+              <el-menu-item :index="String(index)" v-if="item.meta.nav" :key="index" @click="tapMenu($event, item.name)">
+                <span slot="title" style="font-size: 1rem">{{ item.meta.title }}</span>
+              </el-menu-item>
+            </template>
+          </el-menu>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -25,31 +30,25 @@ export default {
   },
   mounted() {
     this.routearr = this.$router.options.routes;
-    console.log(this.routearr, "ddddddd");
     let arr = this.routearr.filter((item) => {
       return item.path != "/" && item.path != "/login";
     });
     let inds = "";
     this.routearr = arr;
     this.routearr.forEach((item, index) => {
-      console.log(index, "ddddddddd111");
       if (item.name == this.$route.name && item.nav != false) {
         inds = index;
       }
     });
-    console.log(this.$route.path);
     if (this.$route.path == "/") {
-      console.log("2wswwww");
       inds = 0;
     }
     this.inds = String(inds);
   },
   watch: {
     $route(to, from) {
-      console.log(to.name);
       let inds;
       this.routearr.forEach((item, index) => {
-        console.log(item);
         if (item.name == to.name) {
           inds = index;
         }
@@ -59,7 +58,6 @@ export default {
   },
   methods: {
     tapMenu(e, name) {
-      console.log(name);
       this.$router.push({ path: `/${name}` });
       // this.$router.push(name);
     },
@@ -74,12 +72,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.logo{
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  margin: 10px auto;
+  img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+}
 .pccNav {
-  background: #545c64;
   overflow: hidden;
+  background: #545c64;
   .pccNavTab {
     height: 100%;
-    width: 8rem;
+    // width: 8rem;
+    border-radius: 1.5rem;
     .el-menu {
       border-right: none;
       text-align: center;

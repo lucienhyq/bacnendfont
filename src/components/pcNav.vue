@@ -2,7 +2,7 @@
   <div class="pcNav">
     <div class="pcNavTab">
       <div class="homePage">
-        <img src="../assets/logo.png" alt="" />
+        <!-- <img src="../assets/logo.jpeg" alt="" /> -->
       </div>
       <div class="right">
         <div class="right_box">
@@ -28,10 +28,11 @@ export default {
 
 <style scoped lang="scss">
 .pcNav {
+  background: #fff;
   .pcNavTab {
     width: 100%;
     // height: 5rem;
-    padding: 0.625rem 1rem;
+    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;

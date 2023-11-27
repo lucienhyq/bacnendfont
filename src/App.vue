@@ -3,12 +3,14 @@
     <!-- pc端管理后台 -->
     <template v-if="$route.meta.isPC">
       <div v-if="$route.name != 'login'" style="width: 100%; height: 100vh; display: flex; flex-direction: column">
-        <topNav></topNav>
         <div :class="[$route.meta.isPC ? 'pcStyle' : '']">
           <leftNav style="flex-shrink: 0"></leftNav>
-          <keep-alive>
-            <router-view style="flex: 1; overflow: hidden" />
-          </keep-alive>
+          <div class="flex_d_c" style="flex: 1;">
+            <topNav></topNav>
+            <keep-alive>
+              <router-view style="flex: 1; overflow: hidden" />
+            </keep-alive>
+          </div>
         </div>
       </div>
       <div class="loginPage" v-if="$route.name == 'login'">
@@ -77,5 +79,9 @@ body {
   flex: 1;
   display: flex;
   background: #eff3f6;
+}
+.flex_d_c{
+  display: flex;
+  flex-direction: column;
 }
 </style>

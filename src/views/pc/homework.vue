@@ -7,7 +7,7 @@
       </div>
       <div class="btn">搜索</div>
     </div>
-    <el-table :data="tableData" style="width: 100%">
+    <el-table :data="tableData" style="width: 100%" cell-style="text-align: center;" header-cell-style="text-align: center;">
       <el-table-column prop="hmuid" label="员工ID" width="160"> </el-table-column>
       <el-table-column prop="realname" label="昵称" width="200"> </el-table-column>
       <el-table-column prop="avatar" label="封面" width="200">

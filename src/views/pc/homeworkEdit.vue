@@ -23,7 +23,7 @@
           <el-form-item label="家政人员照片">
             <div class="flex">
               <img :src="form.avatar" alt="" v-if="form.avatar && this.$route.params.id" style="width: 150px; height: 150px" />
-              <el-upload action="http://localhost:3000/posts" list-type="picture-card" v-if="!tag" :on-success="handlePictureCardPreview" :on-remove="handleRemove">
+              <el-upload :show-file-list="false" action="http://localhost:3000/posts" list-type="picture-card" v-if="!tag" :on-success="handlePictureCardPreview" :on-remove="handleRemove">
                 <i class="el-icon-plus"></i>
               </el-upload>
             </div>
@@ -106,7 +106,7 @@ export default {
         .then((response) => {
           let _info = response.data;
           this.form = _info;
-          this.workTimeList = _info.workTime
+          this.workTimeList = _info.workTime;
         })
         .catch((err) => {
           console.log(err);
@@ -119,7 +119,6 @@ export default {
     },
     handlePictureCardPreview(file) {
       this.form.avatar = file.data;
-      console.log(this.form.goodimg, "goodimg");
     },
     toBlack() {
       this.$router.push({ name: "homework" });

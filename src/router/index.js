@@ -96,6 +96,6 @@ const router = new VueRouter({
 
 router.afterEach((to, from) => {
   // 在路由切换完成后执行的逻辑
-  console.log("路由切换完成");
+  // console.log("路由切换完成");
 });
 export default router;

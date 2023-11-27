@@ -3,7 +3,7 @@
     <div class="login-container">
       <div class="login-container-con">
         <div class="login-container-con_left">
-          <img src="../../assets/logo.png" alt="" />
+          <img src="../../assets/logo.jpeg" alt="" />
           <div class="span">乐善里后台</div>
         </div>
       </div>

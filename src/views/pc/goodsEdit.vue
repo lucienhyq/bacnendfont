@@ -23,7 +23,7 @@
           <el-form-item label="商品图片">
             <div class="flex">
               <img :src="form.goodimg" alt="" v-if="form.goodimg && this.$route.params.id" style="width: 150px; height: 150px" />
-              <el-upload action="http://localhost:3000/posts" list-type="picture-card" v-if="!tag" :on-success="handlePictureCardPreview" :on-remove="handleRemove">
+              <el-upload :show-file-list="false" action="http://localhost:3000/posts" list-type="picture-card" v-if="!tag" :on-success="handlePictureCardPreview" :on-remove="handleRemove">
                 <i class="el-icon-plus"></i>
               </el-upload>
             </div>

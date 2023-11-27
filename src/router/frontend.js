@@ -1,7 +1,7 @@
 // const homeM = r => require(["../views/mobile/home.vue"])
 import homeM from "../views/mobile/home.vue";
 import homeworkEdit from "../views/pc/homeworkEdit.vue";
-
+import OrderPage from "../views/pc/OrderPage.vue";
 export default [
   {
     path: "/homeM",
@@ -13,6 +13,16 @@ export default [
     path: "/homeworkEdit/:id?",
     name: "homeworkEdit",
     component: homeworkEdit,
+    meta: {
+      title: "家政人员资料",
+      isPC: true,
+      nav: false
+    },
+  },
+  {
+    path: "/Order",
+    name: "OrderPage",
+    component: OrderPage,
     meta: {
       title: "家政人员资料",
       isPC: true,
