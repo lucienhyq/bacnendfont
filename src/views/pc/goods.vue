@@ -7,20 +7,25 @@
       </div>
       <div class="btn">搜索</div>
     </div>
-    <el-table :data="tableData" style="width: 100%" cell-style="text-align: center;" header-cell-style="text-align: center;">
+    <el-table :data="tableData" style="width: 100%" :cell-style="{ 'text-align': 'center' }" :header-cell-style="{ 'text-align': 'center' }">
       <el-table-column prop="id" label="ID" width="60"> </el-table-column>
-      <el-table-column prop="title" label="标题" width="200"> </el-table-column>
-      <el-table-column prop="goodimg" label="封面" width="200">
+      <el-table-column prop="title" label="标题" width="300"> </el-table-column>
+      <el-table-column prop="goodimg" label="封面" width="300">
         <template slot-scope="scope">
           <img :src="scope.row.goodimg" class="imageS" alt="" />
         </template>
       </el-table-column>
-      <el-table-column prop="goodStatus" label="商品类型">
+      <el-table-column prop="course_price" label="价格" width="300">
+        <template slot-scope="scope">
+          <span>{{scope.row.course_price}}元</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="goodStatus" label="商品类型" width="300">
         <template slot-scope="scope">
           <span>{{ scope.row.goodStatus == 1 ? "普通商品" : "预约商品" }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="shelfStatus" label="是否上架">
+      <el-table-column prop="shelfStatus" label="是否上架" width="300">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.shelfStatus" @change="updateOne(scope.row)"></el-switch>
         </template>

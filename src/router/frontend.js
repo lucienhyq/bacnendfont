@@ -20,13 +20,13 @@ export default [
     },
   },
   {
-    path: "/Order",
+    path: "/OrderPage",
     name: "OrderPage",
     component: OrderPage,
     meta: {
-      title: "家政人员资料",
+      title: "订单",
       isPC: true,
-      nav: false
+      nav: true
     },
   },
 ]

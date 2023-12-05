@@ -7,22 +7,28 @@
       </div>
       <div class="btn">搜索</div>
     </div>
-    <el-table :data="tableData" style="width: 100%" cell-style="text-align: center;" header-cell-style="text-align: center;">
-      <el-table-column prop="hmuid" label="员工ID" width="160"> </el-table-column>
-      <el-table-column prop="realname" label="昵称" width="200"> </el-table-column>
-      <el-table-column prop="avatar" label="封面" width="200">
+    <el-table :data="tableData" style="width: 100%" :cell-style="{ 'text-align': 'center' }" :header-cell-style="{ 'text-align': 'center' }">
+      <el-table-column prop="hmuid" label="员工ID" width="80"> </el-table-column>
+      <el-table-column prop="realname" label="昵称" width="100"> </el-table-column>
+      <el-table-column prop="workTime" label="价格/小时">
+        <template slot-scope="scope">
+          <div class="price">{{ scope.row.workTime.price }}</div>
+          <div class="price">上班时间 {{ scope.row.workTime.workeStartTime }}-{{ scope.row.workTime.workeEndTime }}</div>
+        </template>
+      </el-table-column>
+      <el-table-column prop="avatar" label="封面">
         <template slot-scope="scope">
           <img :src="scope.row.avatar" class="imageS" alt="" />
         </template>
       </el-table-column>
-      <el-table-column prop="mobile" label="联系电话"> </el-table-column>
-      <el-table-column prop="creatUid.user_name" label="推荐人"> </el-table-column>
-      <el-table-column prop="clientShow" label="平台是否显示">
+      <el-table-column prop="mobile" label="联系电话" width="150"> </el-table-column>
+      <el-table-column prop="creatUid.user_name" label="推荐人" width="150"> </el-table-column>
+      <el-table-column prop="clientShow" label="平台是否显示" width="200">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.clientShow" @change="updateOne(scope.row)"></el-switch>
         </template>
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <div>
             <el-button type="text" size="small" @click="handleClick(scope.row)">编辑资料</el-button>
