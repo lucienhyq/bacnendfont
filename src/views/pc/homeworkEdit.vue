@@ -22,7 +22,7 @@
           </el-form-item>
           <el-form-item label="家政人员照片">
             <div class="flex">
-              <img :src="form.avatar" alt="" v-if="form.avatar && this.$route.params.id" style="width: 150px; height: 150px" />
+              <img :src="form.avatar" alt="" v-if="form.avatar" style="width: 150px; height: 150px" />
               <el-upload :show-file-list="false" action="http://localhost:3000/posts" list-type="picture-card" v-if="!tag" :on-success="handlePictureCardPreview" :on-remove="handleRemove">
                 <i class="el-icon-plus"></i>
               </el-upload>
@@ -69,13 +69,23 @@
               </div>
             </div>
           </el-form-item>
+          <el-form-item label="绑定会员">
+            <div class="addBox" @click="dialogTableVisible = true">
+              <i class="el-icon-plus" v-if="!form.bindUid"></i>
+              <img :src="binduser.avatar" alt="" v-else />
+            </div>
+            <div class="mmda" v-if="form.bindUid">{{ binduser.user_name }}</div>
+            <div @click="cleanSelect" class="mmda rd" v-if="form.bindUid && this.$route.query.tag != 'look'">清除选择</div>
+          </el-form-item>
         </el-form>
       </div>
       <el-button type="primary" @click="onSubmit" v-if="this.$route.query.tag != 'look'">{{ this.$route.params.id ? "编辑商品" : "发布商品" }}</el-button>
     </div>
+    <userSelectDialog :dialogTitle="'选择家政绑定会员'" v-model="dialogTableVisible" @closeDialog="closeUserDialog" @childSelect="childSelect"></userSelectDialog>
   </div>
 </template>
 <script>
+import userSelectDialog from "../../components/userSelectDialog.vue";
 export default {
   data() {
     return {
@@ -89,6 +99,8 @@ export default {
         step: "00:15",
         end: "23:30",
       },
+      dialogTableVisible: false,
+      binduser: [],
     };
   },
   activated() {
@@ -100,6 +112,18 @@ export default {
     }
   },
   methods: {
+    cleanSelect() {
+      this.binduser = "";
+      this.form.bindUid = "";
+    },
+    childSelect(e) {
+      this.binduser = e;
+      this.form.bindUid = e._id;
+      this.dialogTableVisible = false;
+    },
+    closeUserDialog() {
+      this.dialogTableVisible = false;
+    },
     getData() {
       $http
         .post("apitest/homeMaking_list", { hmuid: this.$route.params.id }, "获取中")
@@ -107,6 +131,12 @@ export default {
           let _info = response.data;
           this.form = _info;
           this.workTimeList = _info.workTime;
+          if (response.data.bindUid) {
+            console.log(response.data.bindUid);
+            this.binduser = response.data.bindUid;
+            this.form.bindUid = response.data.bindUid.id;
+            console.log(this.binduser, this.form);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -118,6 +148,7 @@ export default {
       console.log(this.form);
     },
     handlePictureCardPreview(file) {
+      this.$set(this.form, "avatar", file.data);
       this.form.avatar = file.data;
     },
     toBlack() {
@@ -180,6 +211,7 @@ export default {
       });
     },
   },
+  components: { userSelectDialog },
 };
 </script>
 <style lang="scss" scoped>
@@ -258,6 +290,36 @@ export default {
     min-height: 200px;
     max-height: 400px;
     overflow-y: auto;
+  }
+}
+.mmda {
+  width: 100px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rd {
+  color: #999;
+  cursor: pointer;
+}
+.addBox {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #f1e5f1;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6666;
+  cursor: pointer;
+  .el-icon-plus {
+    font-size: 30px;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
   }
 }
 </style>

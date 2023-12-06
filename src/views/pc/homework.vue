@@ -12,7 +12,7 @@
       <el-table-column prop="realname" label="昵称" width="100"> </el-table-column>
       <el-table-column prop="workTime" label="价格/小时">
         <template slot-scope="scope">
-          <div class="price">{{ scope.row.workTime.price }}</div>
+          <div class="price">{{ scope.row.workTime.price }}/元</div>
           <div class="price">上班时间 {{ scope.row.workTime.workeStartTime }}-{{ scope.row.workTime.workeEndTime }}</div>
         </template>
       </el-table-column>
