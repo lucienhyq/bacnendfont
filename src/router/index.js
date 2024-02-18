@@ -28,7 +28,7 @@ const routes = [
     meta: {
       title: "首页",
       isPC: true,
-      nav: true
+      nav: true,
     },
   },
   {
@@ -38,7 +38,7 @@ const routes = [
     meta: {
       title: "商品",
       isPC: true,
-      nav: true
+      nav: true,
     },
   },
   {
@@ -48,7 +48,7 @@ const routes = [
     meta: {
       title: "家政业务",
       isPC: true,
-      nav: true
+      nav: true,
     },
   },
   {
@@ -58,7 +58,7 @@ const routes = [
     meta: {
       title: "商品",
       isPC: true,
-      nav: false
+      nav: false,
     },
   },
   {
@@ -80,7 +80,7 @@ const routes = [
     },
   },
   {
-    path: "/goodDetail/:id",
+    path: "/goodDetail/:id/:name?",
     name: "goodDetail",
     component: goodDetail,
     meta: {

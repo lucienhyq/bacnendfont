@@ -1,10 +1,14 @@
 <template>
   <div class="pcHome">
     <div class="viewBox">
-      <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11">
+      <el-col :xs="4" :sm="6" :md="8" :lg="12" :xl="11">
         <visitor :visitorData="visitorData"></visitor>
       </el-col>
-      <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11"></el-col>
+      <el-col :xs="4" :sm="6" :md="8" :lg="11" :xl="11" style="margin-left: 1rem;">
+        <div class="settingIndexPage">
+          <span>首页设置</span>
+        </div>
+      </el-col>
     </div>
     <!-- 访客组件 -->
     <!-- 访问入口 -->
@@ -55,5 +59,7 @@ export default {
 <style lang="scss" scoped>
 .pcHome {
   padding: 30px;
+}
+.settingIndexPage{
 }
 </style>

@@ -45,6 +45,7 @@ export default {
   background: #ffffff;
   border-radius: 1rem;
   padding: 0.725rem;
+  box-sizing: border-box;
   .title {
     position: relative;
     margin-left: 0.625rem;

@@ -1,17 +1,43 @@
 <template>
   <div class="indexHome">
-    <!-- <van-nav-bar title="首页" left-arrow @click-left="onClickLeft" /> -->
-    <div class="title_node">商品:</div>
-    <div class="list" v-for="item in courseList" :key="item.id" @click="toDetail(item.id)">
-      <div class="list_img">
-        <img :src="item.goodimg" alt="" v-if="item.goodimg" />
+    <van-nav-bar title="首页" />
+    <template v-if="courseList.length > 0">
+      <div class="title_node">商品:</div>
+      <div
+        class="list"
+        v-for="item in courseList"
+        :key="item.id"
+        @click="toDetail(item.id)"
+      >
+        <div class="list_img">
+          <img :src="item.goodimg" alt="" v-if="item.goodimg" />
+        </div>
+        <div class="list_r">
+          <div class="list_r_t">{{ item.title }}</div>
+          <div class="list_price">￥{{ item.course_price }}</div>
+          <div class="list_status">
+            {{ item.goodStatus == 1 ? "自营" : "预约商品" }}
+          </div>
+        </div>
       </div>
-      <div class="list_r">
-        <div class="list_r_t">{{ item.title }}</div>
-        <div class="list_price">￥{{ item.course_price }}</div>
-        <div class="list_status">{{ item.goodStatus == 1 ? "自营" : "预约商品" }}</div>
+    </template>
+    <template>
+      <div
+        class="shnx"
+        v-for="(item, index) in listJson"
+        :key="index"
+        @click="tapDetail(item)"
+      >
+        <img :src="item.poster" alt="" />
+        <div class="right">
+          <div class="title">{{ item.title }}</div>
+          <div class="likeCount">
+            <i class="iconfont icon-zan"></i>
+            {{ item.likes.length > 0 ? item.likes : 0 }}
+          </div>
+        </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 <script>
@@ -19,24 +45,32 @@ export default {
   data() {
     return {
       courseList: [],
+      listJson: [],
     };
   },
   methods: {
     toDetail(id) {
-      this.$router.push({ name: 'goodDetail', params: { id } });
+      this.$router.push({ name: "goodDetail", params: { id } });
     },
     onClickLeft() {
       this.$route.go(-1);
     },
     getData() {
       $http
-        .post("courseList", {}, "获取中")
+        .get("apitest/firstHome", {}, "获取中")
         .then((response) => {
-          this.courseList = response.data.list;
+          this.listJson = response.data.json;
+          console.log(this.listJson);
         })
         .catch((err) => {
           console.log(err);
         });
+    },
+    tapDetail(item) {
+      this.$router.push({
+        name: "goodDetail",
+        params: { id: item.id, name: "nba" },
+      });
     },
   },
   activated() {
@@ -46,14 +80,35 @@ export default {
 </script>
 <style lang="scss" scoped>
 .indexHome {
-  background: #fff;
-  padding-bottom: 1rem;
+  // padding-bottom: 1rem;
 }
 .title_node {
   font-size: 1.2rem;
   padding: 1rem 1rem;
   // margin-bottom: 1rem;
   font-weight: 400;
+}
+.shnx {
+  margin: 0 1rem;
+  margin-top: 1rem;
+  border-radius: 0.625rem;
+  background: #fff;
+  padding: 0.5rem;
+  display: flex;
+  img {
+    width: 8rem;
+    height: auto;
+    margin-right: 0.325rem;
+    border-radius: 0.325rem;
+  }
+  .right {
+    .title {
+      font-size: 0.9rem;
+    }
+    .likeCount {
+      margin-top: 0.325rem;
+    }
+  }
 }
 .list {
   display: flex;

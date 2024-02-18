@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,viewport-fit=cover" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-    <link rel="stylesheet" href="//at.alicdn.com/t/c/font_2849090_3zld43fptnd.css" />
+    <link rel="stylesheet" href="//at.alicdn.com/t/c/font_2849090_2k31ghca1zy.css" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <!-- 以750px为基准设计尺寸自动适配 -->
     <script type="text/javascript">
-      (function (doc, win) {
-        var isAndroid = win.navigator.appVersion.match(/android/gi);
-        var isIPhone = win.navigator.appVersion.match(/iphone/gi);
+      (function(doc, win) {
+        var isAndroid = win.navigator.appVersion.match(/android/gi)
+        var isIPhone = win.navigator.appVersion.match(/iphone/gi)
         var ua = window.navigator.userAgent.toLowerCase();
 
         var scale = 1.0;
@@ -27,42 +27,43 @@
         //   }
         // }
         if (
-          !navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i) &&
-          !/wallet/.test(ua)
+          !navigator.userAgent.match(
+            /(phone|pad|pod|iPhone|iPod|ios|iPad|android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+          ) && !(/wallet/.test(ua))
         ) {
-          var httpEquiv = '<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />';
-          document.write(httpEquiv);
+          var httpEquiv = '<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />'
+          document.write(httpEquiv)
         }
 
-        var text = '<meta name="viewport" content="initial-scale=' + scale + ", maximum-scale=" + scale + ", minimum-scale=" + scale + ", width=device-width," + ' user-scalable=no" />';
-        document.write(text);
+        var text = '<meta name="viewport" content="initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', width=device-width,' + ' user-scalable=no" />';
+        document.write(text)
 
-        var docEl = doc.documentElement;
-        var resizeEvt = "orientationchange" in window ? "orientationchange" : "resize";
-        var recalc = function () {
-          var clientWidth;
+        var docEl = doc.documentElement
+        var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize'
+        var recalc = function() {
+          var clientWidth
           if (!isAndroid && !isIPhone) {
-            clientWidth = 375;
+            clientWidth = 375
           } else {
-            clientWidth = docEl.clientWidth;
+            clientWidth = docEl.clientWidth
           }
           // isAndroid && clientWidth>800 为了防止企业微信跳转微信的时候出现clientWidth=1080 字体过大
-          if (!clientWidth || (isAndroid && clientWidth > 800)) return;
-          docEl.style.fontSize = 16 * (clientWidth / 375) + "px";
+          if (!clientWidth || (isAndroid && clientWidth>800)) return
+          docEl.style.fontSize = 16 * (clientWidth / 375) + 'px'
 
           // 解决部分rem特别大的问题
-          var docElFontSize = docEl.style.fontSize.replace(/px/gi, "");
-          var computedFontSize = win.getComputedStyle(docEl)["font-size"].replace(/px/gi, "");
+          var docElFontSize = docEl.style.fontSize.replace(/px/gi, '')
+          var computedFontSize = win.getComputedStyle(docEl)['font-size'].replace(/px/gi, '')
 
-          console.log("docElFontSize", docElFontSize, computedFontSize);
+          console.log("docElFontSize",docElFontSize,computedFontSize)
           //老人机字体过大
           // docElFontSize != computedFontSize && (docEl.style.fontSize = (docElFontSize * docElFontSize) / computedFontSize + 'px')
-        };
-        if (!doc.addEventListener) return;
-        recalc();
-        win.addEventListener(resizeEvt, recalc, false);
+        }
+        if (!doc.addEventListener) return
+        recalc()
+        win.addEventListener(resizeEvt, recalc, false)
         // doc.addEventListener("DOMContentLoaded", recalc, false);
-      })(document, window);
+      })(document, window)
     </script>
   </head>
   <body>
