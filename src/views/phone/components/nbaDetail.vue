@@ -4,7 +4,6 @@
       <div class="headTitle">{{ detailInfo.title }}</div>
       <div class="detail_conten">
         <img :src="detailInfo.poster" alt="" v-if="detailInfo.conten" />
-        <div v-if="detailInfo.conten" v-html="detailInfo.conten"></div>
         <video
           ref="video"
           id="videoB"
@@ -16,6 +15,7 @@
           :poster="detailInfo.poster"
           autoplay
         ></video>
+        <div v-if="detailInfo.conten" v-html="detailInfo.conten"></div>
       </div>
     </div>
   </div>
@@ -57,32 +57,34 @@ export default {
     methods: {
       getVideoSrc() {},
     },
-    mounted() {
-    },
+    mounted() {},
   },
 };
 </script>
 <style lang="scss" scoped>
-.topPoster {
-  .videoBox {
-    width: 100%;
-    height: auto;
-  }
-  img {
-    width: 100%;
-    height: auto;
-  }
-  .headTitle {
-    font-size: 1.3rem;
-    text-align: left;
-    font-weight: bold;
-    background: #fff;
-    line-height: 3rem;
-    padding: 0.5rem;
-  }
-  .detail_conten {
-    padding: 0 0.625rem;
-    box-sizing: border-box;
+.nbaDetail {
+  padding-bottom: 4rem;
+  .topPoster {
+    .videoBox {
+      width: 100%;
+      height: auto;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+    .headTitle {
+      font-size: 1.3rem;
+      text-align: left;
+      font-weight: bold;
+      background: #fff;
+      line-height: 3rem;
+      padding: 0.5rem;
+    }
+    .detail_conten {
+      padding: 0 0.625rem;
+      box-sizing: border-box;
+    }
   }
 }
 </style>
