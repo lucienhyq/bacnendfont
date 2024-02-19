@@ -6,12 +6,12 @@ module.exports = {
       return;
     }
     if (process.env.NODE_ENV === "development") {
-      url = '/api/' + url
+      url = "/api/" + url;
     } else {
-      url = '/' + url
+      url = "/" + url;
     }
-    url = url + '?min=pc';
-    console.log(url)
+    url = url + "?min=pc";
+    console.log(url);
     if (params) {
       let paramsArray = [];
       Object.keys(params).forEach((key) =>
@@ -21,34 +21,44 @@ module.exports = {
     }
     let headers = {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + webToken
+      Authorization: "Bearer " + webToken,
     };
     return new Promise(function (resolve, reject) {
       fetch(url, {
         method: "GET",
         headers: headers,
-        credentials: "include"
+        credentials: "include",
       })
-        .then(response => {
+        .then((response) => {
           if (response.ok) {
             return response.json();
           } else {
             reject({ status: response.status });
           }
         })
-        .then(response => {
+        .then((response) => {
           if (response.msg == "请登录" && response.result == 0) {
-            // this.$router.push("login")
-            console.log('dddddddddddddlogin', `${window.location.href}login`)
-            window.location.href = `${window.location.href}login`;
+            if (
+              /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+                navigator.userAgent
+              )
+            ) {
+              // 执行相应代码或直接跳转到手机页面
+              console.log("执行相应代码或直接跳转到手机页面");
+              window.location.href = `${document.location.protocol}//${window.location.host}/#/login_m`;
+            } else {
+              // 执行桌面端代码
+              console.log("执行桌面端代码");
+              window.location.href = `${document.location.protocol}//${window.location.host}/#/login`;
+            }
           }
-          return response
+          return response;
         })
-        .then(response => {
-          console.log(response)
+        .then((response) => {
+          console.log(response);
           resolve(response);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err, "网络请求，无响应！");
           //   reject({ status: "网络请求，无响应" });
         });
@@ -61,14 +71,14 @@ module.exports = {
     }
     let webToken = localStorage.getItem("refereesToken");
     if (process.env.NODE_ENV === "development") {
-      url = '/api/' + url
+      url = "/api/" + url;
     } else {
-      url = '/' + url
+      url = "/" + url;
     }
-    url = url + '?min=pc';
+    url = url + "?min=pc";
     let headers = {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + webToken
+      Authorization: "Bearer " + webToken,
     };
     return new Promise((resolve, reject) => {
       fetch(url, {
@@ -77,22 +87,37 @@ module.exports = {
         body: JSON.stringify(formData),
         credentials: "include",
       })
-        .then(response => {
+        .then((response) => {
           if (response.ok) {
             return response.json();
           } else {
             reject({ status: response.status });
           }
         })
-        .then(response => {
-          if ((response.msg == "请登录" || response.msg == "未登录") && response.result == 0) {
-            window.location.href = `${window.location.protocol}/#/login`;
+        .then((response) => {
+          if (
+            (response.msg == "请登录" || response.msg == "未登录") &&
+            response.result == 0
+          ) {
+            if (
+              /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+                navigator.userAgent
+              )
+            ) {
+              // 执行相应代码或直接跳转到手机页面
+              console.log("执行相应代码或直接跳转到手机页面");
+              window.location.href = `${document.location.protocol}//${window.location.host}/#/login_m`;
+            } else {
+              // 执行桌面端代码
+              console.log("执行桌面端代码");
+              window.location.href = `${document.location.protocol}//${window.location.host}/#/login`;
+            }
           }
-          return response
+          return response;
         })
-        .then(response => {
+        .then((response) => {
           resolve(response);
-        })
-    })
-  }
+        });
+    });
+  },
 };

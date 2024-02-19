@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import HomeView from "../views/HomeView.vue";
 import pcHome from "../views/pc/pcHome.vue";
 import login from "../views/pc/login.vue";
 import goodsPage from "../views/pc/goods.vue";
@@ -9,6 +8,7 @@ import indexHome from "../views/phone/indexHome.vue";
 import goodDetail from "../views/phone/goodDetail.vue";
 import homework from "../views/pc/homework.vue";
 import frintend from "./frontend";
+import login_m from "../views/phone/loginPhone.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -68,6 +68,15 @@ const routes = [
     meta: {
       title: "登录",
       isPC: true,
+    },
+  },
+  {
+    path: "/login_m",
+    name: "login_m",
+    component: login_m,
+    meta: {
+      title: "登录",
+      isPC: false,
     },
   },
   {
