@@ -1,6 +1,17 @@
 <template>
   <div class="indexHome">
     <van-nav-bar title="首页" />
+    <div class="optionsBox">
+      <div
+        class="options"
+        v-for="(item, index) in option"
+        :key="index"
+        @click="toPlug(item.id)"
+      >
+        <img src="../../assets/logo.jpeg" alt="" />
+        <div class="txt">{{ item.name }}</div>
+      </div>
+    </div>
     <template v-if="courseList.length > 0">
       <div class="title_node">商品:</div>
       <div
@@ -46,6 +57,7 @@ export default {
     return {
       courseList: [],
       listJson: [],
+      option: [],
     };
   },
   methods: {
@@ -55,7 +67,7 @@ export default {
     onClickLeft() {
       this.$route.go(-1);
     },
-    getData() {
+    firstHome() {
       $http
         .get("apitest/firstHome", {}, "获取中")
         .then((response) => {
@@ -72,15 +84,54 @@ export default {
         params: { id: item.id, name: "nba" },
       });
     },
+    getData() {
+      $http
+        .get("rollapi/roll_setting", {}, "获取中")
+        .then((response) => {
+          this.option = response.data;
+          console.log(this.option);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    toPlug(id) {
+      console.log(id);
+      if (id == 1) {
+        this.$router.push({ name: "imageList" });
+      } else if (id == 2) {
+        this.$router.push({ name: "news" });
+      }
+    },
   },
   activated() {},
   mounted() {
     this.getData();
+    this.firstHome();
   },
 };
 </script>
 <style lang="scss" scoped>
 .indexHome {
+  .optionsBox {
+    display: flex;
+    justify-content: space-around;
+    .options {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      img {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 0.8rem;
+        margin-bottom: 0.325rem;
+      }
+      .txt {
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+    }
+  }
   .title_node {
     font-size: 1.2rem;
     padding: 1rem 1rem;
