@@ -21,7 +21,7 @@
     </template>
     <!-- 移动端 -->
     <template v-else>
-      <div style="width: 375px; margin: 0 auto; background-color: #f5f5f5;min-height: 100vh;">
+      <div style="width: 375px; margin: 0 auto; background-color: #f5f5f5;height: 100%;">
         <keep-alive>
           <router-view />
         </keep-alive>

@@ -10,7 +10,12 @@
       ></van-tab>
     </van-tabs>
     <div class="lisBox">
-      <div class="lis" v-for="(item, index) in newslis" :key="index">
+      <div
+        class="lis"
+        v-for="(item, index) in newslis"
+        :key="index"
+        @click="toNewsDateil(item)"
+      >
         <div class="left">
           <img :src="item.imgList[0]" alt="" />
         </div>
@@ -20,7 +25,11 @@
           <div class="time">{{ item.postTime }}</div>
         </div>
       </div>
-      <div class="txtMore" @click="loadMore" v-if="newslis.length > 0">
+      <div
+        class="txtMore"
+        @click="loadMore"
+        v-if="newslis && newslis.length > 0"
+      >
         加载更多
       </div>
     </div>
@@ -41,6 +50,12 @@ export default {
     this.getData();
   },
   methods: {
+    toNewsDateil(item) {
+      this.$router.push({
+        name: "goodDetail_news",
+        params: { newsId: item.newsId },
+      });
+    },
     onClickLeft() {
       this.$router.go(-1);
     },
@@ -52,7 +67,7 @@ export default {
         .get("rollapi/getNewType", { page: this.page }, "获取中")
         .then((response) => {
           this.newType = response.data;
-          this.active = response.data[0].typeId;
+          // this.active = response.data[1].typeId;
           this.getNewList();
         })
         .catch((err) => {

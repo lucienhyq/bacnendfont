@@ -4,8 +4,27 @@ import homeworkEdit from "../views/pc/homeworkEdit.vue";
 import OrderPage from "../views/pc/OrderPage.vue";
 import imageList from "../views/phone/imageList.vue";
 import news from "../views/phone/news.vue";
+import goodDetail_news from "../views/phone/goodDetail_news.vue";
 
 export default [
+  {
+    path: "/goodDetail_news_today",
+    name: "goodDetail_news_today",
+    component: goodDetail_news,
+    meta: {
+      title: "新闻页",
+      nav: true,
+    },
+  },
+  {
+    path: "/goodDetail_news/:newsId",
+    name: "goodDetail_news",
+    component: goodDetail_news,
+    meta: {
+      title: "新闻页",
+      nav: true,
+    },
+  },
   {
     path: "/news",
     component: news,

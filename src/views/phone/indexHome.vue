@@ -101,6 +101,8 @@ export default {
         this.$router.push({ name: "imageList" });
       } else if (id == 2) {
         this.$router.push({ name: "news" });
+      } else {
+        this.$router.push({ name: "goodDetail_news_today" });
       }
     },
   },

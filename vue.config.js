@@ -4,8 +4,8 @@ const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
-    host: "192.168.0.144",
-    // host: "localhost",
+    // host: "192.168.0.144",
+    host: "localhost",
     port: 8081, // 端口
     open: false, // 启动后打开浏览器
     proxy: {
