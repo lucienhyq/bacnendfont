@@ -101,8 +101,10 @@ export default {
         this.$router.push({ name: "imageList" });
       } else if (id == 2) {
         this.$router.push({ name: "news" });
-      } else {
+      } else if (id == 3) {
         this.$router.push({ name: "goodDetail_news_today" });
+      } else if (id == 4) {
+        this.$router.push({ name: "homeMaking_index" });
       }
     },
   },
@@ -118,6 +120,7 @@ export default {
   .optionsBox {
     display: flex;
     justify-content: space-around;
+    margin-top: 1rem;
     .options {
       display: flex;
       align-items: center;

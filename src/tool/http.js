@@ -55,7 +55,6 @@ module.exports = {
           return response;
         })
         .then((response) => {
-          console.log(response);
           resolve(response);
         })
         .catch((err) => {
@@ -96,6 +95,7 @@ module.exports = {
         })
         .then((response) => {
           if (
+            response &&
             (response.msg == "请登录" || response.msg == "未登录") &&
             response.result == 0
           ) {

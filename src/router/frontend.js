@@ -5,8 +5,18 @@ import OrderPage from "../views/pc/OrderPage.vue";
 import imageList from "../views/phone/imageList.vue";
 import news from "../views/phone/news.vue";
 import goodDetail_news from "../views/phone/goodDetail_news.vue";
+import homeMaking_index from "../views/phone/homeMaking/homeMaking_index.vue";
 
 export default [
+  {
+    path: "/homeMaking_index",
+    name: "homeMaking_index",
+    component: homeMaking_index,
+    meta: {
+      title: "家政预约首页",
+      nav: true,
+    },
+  },
   {
     path: "/goodDetail_news_today",
     name: "goodDetail_news_today",
