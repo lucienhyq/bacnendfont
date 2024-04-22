@@ -12,8 +12,8 @@
       <el-table-column prop="realname" label="昵称" width="100"> </el-table-column>
       <el-table-column prop="workTime" label="价格/小时">
         <template slot-scope="scope">
-          <div class="price">{{ scope.row.workTime.price }}/元</div>
-          <div class="price">上班时间 {{ scope.row.workTime.workeStartTime }}-{{ scope.row.workTime.workeEndTime }}</div>
+          <div class="price">{{ scope.row.price }}/元</div>
+          <!-- <div class="price">上班时间 {{ scope.row.workTime.workeStartTime }}-{{ scope.row.workTime.workeEndTime }}</div> -->
         </template>
       </el-table-column>
       <el-table-column prop="avatar" label="封面">
@@ -94,8 +94,8 @@ export default {
       $http
         .post("apitest/homeMaking_list", {}, "获取中")
         .then((response) => {
-          console.log(response.data);
-          this.tableData = response.data;
+          console.log(response.data.data);
+          this.tableData = response.data.data;
           this.total = response.data.length;
         })
         .catch((err) => {

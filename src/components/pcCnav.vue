@@ -31,7 +31,7 @@ export default {
   mounted() {
     this.routearr = this.$router.options.routes;
     let arr = this.routearr.filter((item) => {
-      return item.path != "/" && item.path != "/login";
+      return item.path != "/" && item.path != "/login" && item.meta.isPC;
     });
     let inds = "";
     this.routearr = arr;

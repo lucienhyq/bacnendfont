@@ -6,6 +6,8 @@ import imageList from "../views/phone/imageList.vue";
 import news from "../views/phone/news.vue";
 import goodDetail_news from "../views/phone/goodDetail_news.vue";
 import homeMaking_index from "../views/phone/homeMaking/homeMaking_index.vue";
+import music_score_index from "../views/pc/music_score_index";
+import music_score_index from "../views/pc/music_score_index";
 
 export default [
   {
@@ -72,5 +74,22 @@ export default [
       isPC: true,
       nav: true,
     },
+  },
+  {
+    path: "/music_score_index",
+    name: "music_score_index",
+    component: music_score_index,
+    meta: {
+      title: "音乐成绩表单",
+      isPC: true,
+      nav: true,
+    },
+    children: [
+      {
+        path: "/music_score_create",
+        name: music_score_create,
+        component:
+      },
+    ],
   },
 ];
