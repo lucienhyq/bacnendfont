@@ -89,11 +89,11 @@ export default [
         path: "/music_score_create",
         name: "music_score_create",
         component: music_score_create,
-        meta:{
-          title:'创建表单',
+        meta: {
+          title: "创建表单",
           isPC: true,
-      nav: true,
-        }
+          nav: true,
+        },
       },
     ],
   },

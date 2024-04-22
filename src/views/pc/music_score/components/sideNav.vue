@@ -39,9 +39,11 @@ export default {
   },
   methods: {
     tapRoute(path) {
-      console.log(path)
       this.$router.push({ path: path });
     },
+    tapRoute_child(path){
+      this.$router.push({ path: `${this.routerArr.path}${path}` });
+    }
   },
 };
 </script>

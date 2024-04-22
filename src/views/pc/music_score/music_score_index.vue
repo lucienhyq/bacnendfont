@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <sideNav></sideNav>
-    <div class="music_score_index">
+    <div class="music_score_index" v-if="$route.name == 'music_score_index'">
       <div class="topSearch">
         <div class="line">
           <div class="label">昵称：</div>
@@ -54,6 +54,7 @@
         </el-table>
       </div>
     </div>
+    <router-view v-else></router-view>
   </div>
 </template>
 <script>
@@ -91,10 +92,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.box{
+.box {
   display: flex;
 }
 .music_score_index {
+  flex: 1;
   margin: 20px;
   padding: 20px;
   border-radius: 5px;
