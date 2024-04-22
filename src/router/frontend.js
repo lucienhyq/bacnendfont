@@ -6,8 +6,8 @@ import imageList from "../views/phone/imageList.vue";
 import news from "../views/phone/news.vue";
 import goodDetail_news from "../views/phone/goodDetail_news.vue";
 import homeMaking_index from "../views/phone/homeMaking/homeMaking_index.vue";
-import music_score_index from "../views/pc/music_score_index";
-import music_score_index from "../views/pc/music_score_index";
+import music_score_index from "../views/pc/music_score/music_score_index";
+import music_score_create from "../views/pc/music_score/music_score_create";
 
 export default [
   {
@@ -87,8 +87,13 @@ export default [
     children: [
       {
         path: "/music_score_create",
-        name: music_score_create,
-        component:
+        name: "music_score_create",
+        component: music_score_create,
+        meta:{
+          title:'创建表单',
+          isPC: true,
+      nav: true,
+        }
       },
     ],
   },
