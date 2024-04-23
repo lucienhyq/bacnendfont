@@ -13,7 +13,7 @@
         class="navlis"
         v-for="(item, index) in routerArr.children"
         :key="index"
-        @click="tapRoute(item.path)"
+        @click="tapRoute_child(item.name)"
         :class="[$route.name == item.name ? 'act' : '']"
       >
         {{ item.meta.title }}
@@ -29,22 +29,21 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route);
     let routesArr = this.$router.options.routes;
     let arr = routesArr.filter((item) => {
       return item.name == "music_score_index";
     });
     this.routerArr = arr[0];
-    console.log(this.routerArr, "ddddddddddddd");
   },
   methods: {
     tapRoute(path) {
-      if(this.$route.path == path) return;
+      if (this.$route.path == path) return;
       this.$router.push({ path: path });
     },
-    tapRoute_child(path){
-      this.$router.push({ path: `${this.routerArr.path}${path}` });
-    }
+    tapRoute_child(name) {
+      if (this.$route.name == name) return;
+      this.$router.push({ name: name });
+    },
   },
 };
 </script>
