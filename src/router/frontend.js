@@ -86,7 +86,7 @@ export default [
     },
     children: [
       {
-        path: "/music_score_create",
+        path: "/music_score_create/:id?",
         name: "music_score_create",
         component: music_score_create,
         meta: {

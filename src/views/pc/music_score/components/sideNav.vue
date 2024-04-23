@@ -39,6 +39,7 @@ export default {
   },
   methods: {
     tapRoute(path) {
+      if(this.$route.path == path) return;
       this.$router.push({ path: path });
     },
     tapRoute_child(path){
