@@ -9,6 +9,8 @@ import goodDetail from "../views/phone/goodDetail.vue";
 import homework from "../views/pc/homework.vue";
 import frintend from "./frontend";
 import login_m from "../views/phone/loginPhone.vue";
+import music_score_index from "../views/pc/music_score/music_score_index";
+import music_score_create from "../views/pc/music_score/music_score_create";
 Vue.use(VueRouter);
 
 const routes = [
@@ -20,6 +22,28 @@ const routes = [
       title: "首页",
       isPC: true,
     },
+  },
+  {
+    path: "/music_score_index",
+    name: "music_score_index",
+    component: music_score_index,
+    meta: {
+      title: "音乐成绩表单",
+      isPC: true,
+      nav: true,
+    },
+    children: [
+      {
+        path: "/music_score_create/:id?",
+        name: "music_score_create",
+        component: music_score_create,
+        meta: {
+          title: "创建表单",
+          isPC: true,
+          nav: true,
+        },
+      },
+    ],
   },
   {
     path: "/pcHome",

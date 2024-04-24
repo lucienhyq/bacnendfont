@@ -6,10 +6,17 @@ import imageList from "../views/phone/imageList.vue";
 import news from "../views/phone/news.vue";
 import goodDetail_news from "../views/phone/goodDetail_news.vue";
 import homeMaking_index from "../views/phone/homeMaking/homeMaking_index.vue";
-import music_score_index from "../views/pc/music_score/music_score_index";
-import music_score_create from "../views/pc/music_score/music_score_create";
-
+import diyformPage from "../views/phone/diyform";
 export default [
+  {
+    path: "/diyform/:id?",
+    name: "diyform",
+    component: diyformPage,
+    meta: {
+      title: "表单",
+      nav: true,
+    },
+  },
   {
     path: "/homeMaking_index",
     name: "homeMaking_index",
@@ -74,27 +81,5 @@ export default [
       isPC: true,
       nav: true,
     },
-  },
-  {
-    path: "/music_score_index",
-    name: "music_score_index",
-    component: music_score_index,
-    meta: {
-      title: "音乐成绩表单",
-      isPC: true,
-      nav: true,
-    },
-    children: [
-      {
-        path: "/music_score_create/:id?",
-        name: "music_score_create",
-        component: music_score_create,
-        meta: {
-          title: "创建表单",
-          isPC: true,
-          nav: true,
-        },
-      },
-    ],
   },
 ];

@@ -28,6 +28,7 @@
         type="textarea"
         placeholder="请输入内容"
         v-model="formDesc"
+        :autosize="{ minRows: 2, maxRows: 10 }"
         style="width: 350px"
       >
       </el-input>
@@ -80,16 +81,28 @@
           </div>
         </div>
         <template v-if="item.type == 'diyriqi'">
-          设置默认
-          <el-select v-model="item.default_time_type" placeholder="请选择">
-            <el-option
-              v-for="item in dateOption"
-              :key="item.value"
-              :label="item.label"
-              :value="item.label"
+          <div class="line">
+            设置默认
+            <el-select v-model="item.default_time_type" placeholder="请选择">
+              <el-option
+                v-for="item in dateOption"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </div>
+
+          <div class="line" v-if="item.default_time_type == 2">
+            指定日期：
+            <el-date-picker
+              v-model="item.default_time"
+              type="date"
+              placeholder="选择日期"
             >
-            </el-option>
-          </el-select>
+            </el-date-picker>
+          </div>
         </template>
         <template v-if="item.type == 'diyxlk'">
           <el-input
@@ -113,6 +126,7 @@
             </el-option>
           </el-select>
         </template>
+        <i class="el-icon-close" @click="delMethod(item, index)"></i>
       </div>
     </div>
     <div class="contenBox">
@@ -190,6 +204,10 @@ export default {
     }
   },
   methods: {
+    delMethod(item, index) {
+      console.log(this.contenObj, index);
+      this.contenObj.splice(index, 1);
+    },
     backUrl() {
       this.$router.go(-1);
     },
@@ -202,6 +220,7 @@ export default {
         type: "", //类型
         tp_must: 0, //必填
         tp_name: "", //字段名称
+        value: "",
       };
       obj.type = this.valueSelect;
       if (this.valueSelect == "diydanhwb") {
@@ -212,10 +231,12 @@ export default {
       } else if (this.valueSelect == "diyriqi") {
         // 空白 0 填写当天 1 指定日期 2
         obj.default_time_type = "";
+        obj.default_time = "";
       } else if (this.valueSelect == "diyxlk") {
         obj.tp_text = "";
       } else if (this.valueSelect == "diyimg") {
         obj.tp_max = 1;
+        obj.value = [];
       }
       this.contenObj.push(obj);
     },
@@ -233,9 +254,28 @@ export default {
           console.log(err);
         });
     },
+    async update() {
+      let json = {
+        title: this.title,
+        formImg: this.formImg,
+        formDesc: this.formDesc,
+        contenObj: this.contenObj,
+        id: this.$route.params.id,
+      };
+      let { data, result, msg } = await $http.post(
+        "apitest/updateForm",
+        json,
+        "获取中"
+      );
+      console.log(data);
+      if (result) {
+        this.$router.push({ name: "music_score_index" });
+      }
+      this.$toast(msg);
+    },
     confirmTap() {
       if (this.$route.params.id) {
-        console.log("有id就是更新");
+        this.update();
         return;
       }
       let json = {
@@ -244,11 +284,15 @@ export default {
         formDesc: this.formDesc,
         contenObj: this.contenObj,
       };
-      console.log(json, this.contenObj);
       $http
         .post("apitest/createForm", json, "获取中")
         .then((response) => {
-          console.log(response);
+          if (response.result) {
+            this.$toast(response.msg);
+            this.$router.push({ name: "music_score_index" });
+          } else {
+            this.$toast(response.msg);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -288,6 +332,18 @@ export default {
       text-align: center;
       color: #666;
       padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      .el-icon-close {
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin-left: 1.5rem;
+      }
+    }
+    .line {
+      display: flex;
+      align-items: center;
+      margin-right: 1rem;
     }
     .inpBox {
       display: flex;

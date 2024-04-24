@@ -68,6 +68,12 @@
                   @click="handleClick(scope.row)"
                   >编辑</el-button
                 >
+                <el-button
+                  type="text"
+                  size="small"
+                  @click="delMethod(scope.row)"
+                  >删除</el-button
+                >
               </div>
             </template>
           </el-table-column>
@@ -114,6 +120,9 @@ export default {
     },
     handleClick(item) {
       this.$router.push({ path: `/music_score_create/${item.id}` });
+    },
+    delMethod() {
+      
     },
     getData() {
       $http
