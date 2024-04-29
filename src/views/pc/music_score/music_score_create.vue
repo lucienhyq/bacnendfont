@@ -10,6 +10,10 @@
       ></el-input>
     </div>
     <div class="contenBox">
+      <div class="left">是否是艺考搜集表单</div>
+      <el-switch v-model="checked"></el-switch>
+    </div>
+    <div class="contenBox">
       <div class="left">表单图片</div>
       <el-upload
         class="avatar-uploader"
@@ -195,6 +199,7 @@ export default {
           value: "2",
         },
       ],
+      checked: false,
     };
   },
   mounted() {
@@ -249,6 +254,8 @@ export default {
           this.title = response.data.formName;
           this.formDesc = response.data.formDesc;
           this.formImg = response.data.formImg;
+          this.checked = response.data.isMusicForm;
+          console.log(this.checked)
         })
         .catch((err) => {
           console.log(err);
@@ -261,6 +268,7 @@ export default {
         formDesc: this.formDesc,
         contenObj: this.contenObj,
         id: this.$route.params.id,
+        checked: this.checked,
       };
       let { data, result, msg } = await $http.post(
         "apitest/updateForm",
@@ -283,13 +291,14 @@ export default {
         formImg: this.formImg,
         formDesc: this.formDesc,
         contenObj: this.contenObj,
+        checked: this.checked,
       };
       $http
         .post("apitest/createForm", json, "获取中")
         .then((response) => {
           if (response.result) {
             this.$toast(response.msg);
-            this.$router.push({ name: "music_score_index" });
+            this.$router.replace({ name: "music_score_index" });
           } else {
             this.$toast(response.msg);
           }

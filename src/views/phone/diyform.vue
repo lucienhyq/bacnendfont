@@ -71,18 +71,36 @@
           </template>
         </van-cell>
       </template>
+      <van-cell title="选择赛区" is-link @click="showArea = true">
+        <template #default>
+          <span>{{
+            province ? province_name + "-" + city_name : "请选择赛区"
+          }}</span>
+        </template>
+      </van-cell>
     </div>
+    <div class="btn" @click="postForm">提交表单</div>
     <van-action-sheet
       title="请选择"
       v-model="showAction"
       :actions="actions"
       @select="onSelect"
     />
+    <van-popup v-model="showArea" position="bottom" round>
+      <van-area
+        title="请选择省市区"
+        :area-list="areaList"
+        @confirm="confirm_M"
+        @cancel="cancel_C"
+        :columns-num="2"
+      />
+    </van-popup>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { areaList } from "@vant/area-data";
 export default {
   data() {
     return {
@@ -92,6 +110,14 @@ export default {
       FormContent: [],
       showAction: false,
       actions: [],
+      areaList,
+      showArea: false,
+      // 音乐表单必填省市区
+      isMusicForm: "",
+      province: "",
+      province_name: "",
+      city: "",
+      city_name: "",
     };
   },
   activated() {
@@ -109,15 +135,18 @@ export default {
         return str;
       };
     },
-    // actions_c(item) {
-    //   return function (item) {
-    //     let content = item.tp_text;
-    //     let linesArray = content.split(/\r?\n/);
-    //     return linesArray;
-    //   };
-    // },
   },
   methods: {
+    confirm_M(e) {
+      this.province_name = e[0].name;
+      this.city_name = e[1].name;
+      this.province = e[0].code;
+      this.city = e[1].code;
+      this.cancel_C();
+    },
+    cancel_C() {
+      this.showArea = false;
+    },
     afterRead(e, index) {
       console.log(e, index);
       let fd = new FormData();
@@ -170,6 +199,41 @@ export default {
           : time.getSeconds() + 1;
       return `${Year}-${month}-${day}`;
     },
+    async postForm() {
+      if (this.isMusicForm) {
+        if (!this.city && !this.province) {
+          this.$toast("请选择所在赛区");
+          return;
+        }
+      }
+      for (let i = 0; i < this.FormContent.length; i++) {
+        if (this.FormContent[i].tp_must) {
+          if (!this.FormContent[i].tp_default && !this.FormContent[i].value) {
+            this.$toast(`${this.FormContent[i].tp_name}不能为空`);
+            return;
+          }
+        }
+      }
+      let json = {
+        form_id: this.$route.params.id,
+        FormContent: this.FormContent,
+      };
+      if (this.isMusicForm) {
+        json.city = this.city;
+        json.province = this.province;
+      }
+      let { data, result, msg } = await $http.post(
+        "apitest/musicFormRecord",
+        json,
+        "."
+      );
+      if (result) {
+        this.$toast(msg);
+      } else {
+        this.$toast(msg);
+      }
+      console.log(this.FormContent);
+    },
     async getData() {
       let { data, result, msg } = await $http.get(
         "apitest/findFormId",
@@ -182,6 +246,7 @@ export default {
         this.formImg = data.formImg;
         this.formDesc = data.formDesc;
         this.FormContent = data.FormContent;
+        this.isMusicForm = data.isMusicForm;
         console.log(this.title);
       } else {
         this.$toast(msg);
@@ -195,9 +260,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.btn {
+  margin: 1.5rem 2rem;
+  text-align: center;
+  padding: 0.5rem 0;
+  box-sizing: border-box;
+  background: #4eb2e4;
+  color: #fff;
+  border-radius: 0.625rem;
+}
 .diyformPage {
   background: #fff;
   padding-top: 46px;
+  padding-bottom: 8rem;
   .imgae {
     width: 100%;
     height: 0 auto;

@@ -1,13 +1,13 @@
 <template>
   <div class="sideNav">
-    <div
+    <!-- <div
       class="navlis"
       :class="[$route.name == routerArr.name ? 'act' : '']"
       v-if="routerArr && routerArr.meta"
       @click="tapRoute(routerArr.path)"
     >
       {{ routerArr.meta.title }}
-    </div>
+    </div> -->
     <template v-if="routerArr && routerArr.children">
       <div
         class="navlis"
