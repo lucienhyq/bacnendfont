@@ -17,7 +17,11 @@
           <el-col :span="8">
             <div class="bg-purple">
               <div class="txt">登录后台</div>
-              <el-input placeholder="账号" v-model="user" style="margin-bottom: 15px">
+              <el-input
+                placeholder="账号"
+                v-model="user"
+                style="margin-bottom: 15px"
+              >
                 <i slot="prefix" class="el-input__icon el-icon-user"></i>
               </el-input>
               <el-input placeholder="密码" v-model="password" type="password">
@@ -43,12 +47,16 @@ export default {
   methods: {
     loginMethod() {
       $http
-        .post("login", { user_name: this.user, password: this.password }, "获取中")
+        .post(
+          "login",
+          { user_name: this.user, password: this.password, login_type: "pc" },
+          "获取中"
+        )
         .then((response) => {
-          if(response.result == 1){
-            window.localStorage.setItem('refereesToken',response.data.token);
-            this.$router.push("pcHome")
-          }else{
+          if (response.result == 1) {
+            window.localStorage.setItem("refereesToken", response.data.token);
+            this.$router.push("pcHome");
+          } else {
             this.$message.success(response.msg);
           }
         })
