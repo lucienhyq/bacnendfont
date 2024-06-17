@@ -32,11 +32,7 @@ export default {
       $http
         .post(
           "login",
-          {
-            user_name: this.user,
-            password: this.password,
-            login_type: "phone",
-          },
+          { user_name: this.user, password: this.password },
           "获取中"
         )
         .then((response) => {
