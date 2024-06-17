@@ -12,9 +12,13 @@ import login_m from "../views/phone/loginPhone.vue";
 import music_score_index from "../views/pc/music_score/music_score_index";
 import formSetting from "../views/pc/music_score/formSetting";
 import music_score_create from "../views/pc/music_score/music_score_create";
+import nestedRouter from "./modules/nested";
+import Layout from "@/Layout";
+
 Vue.use(VueRouter);
 
 const routes = [
+  nestedRouter,
   {
     path: "/",
     name: "",
@@ -27,12 +31,20 @@ const routes = [
   {
     path: "/pcHome",
     name: "pcHome",
-    component: pcHome,
+    component: Layout,
+    redirect: "/pcHome/pcHomeindex",
     meta: {
-      title: "首页",
-      isPC: true,
-      nav: true,
+      title: "Guide",
+      icon: "guide",
     },
+    children: [
+      {
+        path: "pcHomeindex",
+        component: () => import("@/views/pc/pcHome"),
+        name: "pcHomeIndex",
+        meta: { title: "Guide", icon: "guide", noCache: true },
+      },
+    ],
   },
   {
     path: "/goods",
@@ -134,10 +146,10 @@ const routes = [
     ],
   },
 ].concat(frintend);
-
 const router = new VueRouter({
   routes,
 });
+console.log(router);
 
 router.afterEach((to, from) => {
   // 在路由切换完成后执行的逻辑

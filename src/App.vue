@@ -1,6 +1,8 @@
 <template>
-  <div id="app" :class="[$route.meta.isPC ? 'pcStyle_bg' : 'pcStyle_bg_none']">
-    <!-- pc端管理后台 -->
+  <div id="app">
+    <router-view></router-view>
+  </div>
+  <!-- <div id="app" :class="[$route.meta.isPC ? 'pcStyle_bg' : 'pcStyle_bg_none']">
     <template v-if="$route.meta.isPC">
       <div v-if="$route.name != 'login'" style="width: 100%; height: 100vh; display: flex; flex-direction: column">
         <div :class="[$route.meta.isPC ? 'pcStyle' : '']">
@@ -19,7 +21,6 @@
         </keep-alive>
       </div>
     </template>
-    <!-- 移动端 -->
     <template v-else>
       <div style="width: 375px; margin: 0 auto; background-color: #f5f5f5;height: 100%;">
         <keep-alive>
@@ -27,11 +28,11 @@
         </keep-alive>
       </div>
     </template>
-  </div>
+  </div> -->
 </template>
 <script>
 import topNav from "@/components/pcNav.vue";
-import leftNav from "@/components/pcCnav.vue";
+import leftNav from "@/Layout/components/sidebar.vue";
 export default {
   data() {
     return {
@@ -58,8 +59,7 @@ body {
   padding: 0;
   margin: 0;
 }
-#app {
-}
+
 #app #contenBox_h img {
   max-width: 100% !important;
   height: auto !important;
@@ -80,7 +80,7 @@ body {
   display: flex;
   background: #eff3f6;
 }
-.flex_d_c{
+.flex_d_c {
   display: flex;
   flex-direction: column;
 }
