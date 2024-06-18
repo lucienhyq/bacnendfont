@@ -1,19 +1,24 @@
 <template>
   <div class="pccNav">
-    <el-menu
-      :default-active="inds"
-      background-color="#545c64"
-      class="el-menu-vertical-demo"
-      text-color="#fff"
-    >
-      <Side_barItem
-        v-for="(route, index) in routearr"
-        :key="index"
-        :indexS="route.path"
-        :item="route"
-        :base-path="route.path"
-      ></Side_barItem>
-    </el-menu>
+    <el-row>
+      <el-col :span="24">
+        <el-menu
+          :default-active="inds"
+          background-color="#545c64"
+          class="el-menu-vertical-demo"
+          text-color="#fff"
+        >
+          <!-- :collapse="true" -->
+          <Side_barItem
+            v-for="(route, index) in routearr"
+            :key="index"
+            :indexS="route.path"
+            :item="route"
+            :base-path="route.path"
+          ></Side_barItem>
+        </el-menu>
+      </el-col>
+    </el-row>
   </div>
 </template>
 

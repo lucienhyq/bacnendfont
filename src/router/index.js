@@ -32,50 +32,104 @@ const routes = [
     path: "/pcHome",
     name: "pcHome",
     component: Layout,
-    redirect: "/pcHome/pcHomeindex",
+    redirect: "/pcHome",
     meta: {
-      title: "Guide",
-      icon: "guide",
+      title: "首页",
+      icon: "el-icon-house",
     },
     children: [
       {
-        path: "pcHomeindex",
+        path: "pcHome",
         component: () => import("@/views/pc/pcHome"),
-        name: "pcHomeIndex",
-        meta: { title: "Guide", icon: "guide", noCache: true },
+        name: "pcHome",
+        meta: { title: "首页", noCache: true },
       },
     ],
   },
   {
-    path: "/goods",
-    name: "goods",
-    component: goodsPage,
+    path: "/OrderPage",
+    name: "OrderPage",
+    component: Layout,
+    redirect: "/OrderPage",
+    meta: {
+      title: "订单",
+      icon: "el-icon-s-order",
+    },
+    children: [
+      {
+        path: "OrderPage",
+        component: () => import("@/views/pc/OrderPage"),
+        name: "OrderPage",
+        meta: { title: "订单", noCache: true },
+      },
+    ],
+  },
+  {
+    path: "/goodsPage",
+    name: "goodsPage",
+    component: Layout,
+    redirect: "/goodsPage",
     meta: {
       title: "商品",
-      isPC: true,
-      nav: true,
+      icon: "el-icon-tickets",
     },
+    children: [
+      {
+        path: "goodsPage",
+        component: () => import("@/views/pc/goods"),
+        name: "goodsPage",
+        meta: { title: "商品列表", noCache: true },
+      },
+      {
+        path: "goodsEdit/:id?",
+        component: () => import("@/views/pc/goodsEdit"),
+        name: "goodsEdit",
+        meta: { title: "商品编辑", noCache: true },
+      },
+    ],
   },
   {
     path: "/homework",
     name: "homework",
-    component: homework,
+    component: Layout,
     meta: {
       title: "家政业务",
-      isPC: true,
-      nav: true,
+      icon: "el-icon-suitcase",
     },
+    children: [
+      {
+        path: "homework",
+        component: () => import("@/views/pc/homework"),
+        name: "homework",
+        meta: { title: "家政列表", noCache: true },
+      },
+      {
+        path: "/homeworkEdit/:id?",
+        name: "homeworkEdit",
+        component: () => import("@/views/pc/homeworkEdit"),
+        meta: {
+          title: "家政人员",
+        },
+      },
+    ],
   },
-  {
-    path: "/goodsEdit/:id",
-    name: "goodsEdit",
-    component: goodsEdit,
-    meta: {
-      title: "商品",
-      isPC: true,
-      nav: false,
-    },
-  },
+  // {
+  //   path: "/goodsEdit/:id?",
+  //   name: "goodsEdit",
+  //   component: Layout,
+  //   meta: {
+  //     title: "商品编辑",
+  //     icon: "el-icon-document",
+  //   },
+  //   children: [
+  //     {
+  //       path: "goodsEdit/:id?",
+  //       component: () => import("@/views/pc/goodsEdit"),
+  //       name: "goodsEdit",
+  //       meta: { title: "商品编辑", noCache: true },
+  //     },
+  //   ],
+  // },
   {
     path: "/login",
     name: "login",
@@ -83,6 +137,7 @@ const routes = [
     meta: {
       title: "登录",
       isPC: true,
+      hidden: true,
     },
   },
   {
@@ -92,6 +147,7 @@ const routes = [
     meta: {
       title: "登录",
       isPC: false,
+      hidden: true,
     },
   },
   {
@@ -101,6 +157,7 @@ const routes = [
     meta: {
       title: "首页",
       isPC: false,
+      hidden: true,
     },
   },
   {
@@ -110,23 +167,21 @@ const routes = [
     meta: {
       title: "详情",
       isPC: false,
+      hidden: true,
     },
   },
   {
     path: "/music_score_index",
     name: "music_score_index",
-    component: music_score_index,
+    component: Layout,
     meta: {
       title: "音乐成绩表单",
-      isPC: true,
-      nav: true,
     },
     children: [
       {
         path: "/music_score_index",
         name: "music_score_index",
         component: () => import("../views/pc/music_score/formSetting.vue"),
-        // component: formSetting,
         meta: {
           title: "音乐成绩表单",
           isPC: true,

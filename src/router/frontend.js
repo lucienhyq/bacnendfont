@@ -14,7 +14,7 @@ export default [
     component: diyformPage,
     meta: {
       title: "表单",
-      nav: true,
+      hidden: true,
     },
   },
   {
@@ -24,6 +24,7 @@ export default [
     meta: {
       title: "家政预约首页",
       nav: true,
+      hidden: true,
     },
   },
   {
@@ -33,6 +34,7 @@ export default [
     meta: {
       title: "新闻页",
       nav: true,
+      hidden: true,
     },
   },
   {
@@ -42,44 +44,27 @@ export default [
     meta: {
       title: "新闻页",
       nav: true,
+      hidden: true,
     },
   },
   {
     path: "/news",
     component: news,
     name: "news",
-    meta: { title: "新闻", foot: false, isPC: false },
+    meta: { title: "新闻", hidden: true },
   },
   {
     path: "/imageList",
     component: imageList,
     name: "imageList",
-    meta: { title: "图片列表", foot: false, isPC: false },
+    meta: { title: "图片列表", hidden: true },
   },
   {
     path: "/homeM",
     component: homeM,
     name: "homeM",
-    meta: { title: "首页", foot: false, isPC: false },
+    meta: { title: "首页", hidden: true },
   },
-  {
-    path: "/homeworkEdit/:id?",
-    name: "homeworkEdit",
-    component: homeworkEdit,
-    meta: {
-      title: "家政人员资料",
-      isPC: true,
-      nav: false,
-    },
-  },
-  {
-    path: "/OrderPage",
-    name: "OrderPage",
-    component: OrderPage,
-    meta: {
-      title: "订单",
-      isPC: true,
-      nav: true,
-    },
-  },
+  
+  
 ];

@@ -1,6 +1,5 @@
 <template>
   <div class="app-wrapper">
-    1111111111111
     <sidebar class="sidebar-container"></sidebar>
     <AppMain></AppMain>
   </div>
@@ -21,9 +20,9 @@ export default {
 <style lang="scss" scoped>
 .sidebar-container {
   transition: width 0.28s;
-  width: 210px !important;
   background-color: #304156;
   height: 100%;
+  min-width: 210px;
   position: fixed;
   font-size: 0;
   top: 0;
