@@ -9,27 +9,56 @@
         <div class="title">添加商品</div>
       </div>
       <div class="formBox">
-        <el-form ref="form" :model="form" label-width="120px" label-position="left">
-          <el-form-item label="家政人员名称">
-            <el-input v-model="form.realname" :disabled="tag" style="width: 300px" placeholder="请输入家政人员名称"></el-input>
+        <el-form
+          ref="form"
+          :model="form"
+          label-width="120px"
+          label-position="left"
+        >
+          <el-form-item label="服务名称">
+            <el-input
+              v-model="form.makingName"
+              :disabled="tag"
+              style="width: 300px"
+              placeholder="请输入服务名称"
+            ></el-input>
           </el-form-item>
           <!-- <el-form-item label="商品价格">
             <el-input v-model="form.course_price" :disabled="tag" style="width: 300px" placeholder="请输入商品价格"></el-input>
           </el-form-item> -->
           <el-form-item label="平台是否显示">
             <el-switch v-model="form.clientShow" :disabled="tag"> </el-switch>
-            <span class="shelfStatusTxt">{{ form.clientShow ? "上架" : "下架" }}</span>
+            <span class="shelfStatusTxt">{{
+              form.clientShow ? "上架" : "下架"
+            }}</span>
           </el-form-item>
           <el-form-item label="家政人员照片">
             <div class="flex">
-              <img :src="form.avatar" alt="" v-if="form.avatar" style="width: 150px; height: 150px" />
-              <el-upload :show-file-list="false" action="http://localhost:3000/posts" list-type="picture-card" v-if="!tag" :on-success="handlePictureCardPreview" :on-remove="handleRemove">
+              <img
+                :src="form.avatar"
+                alt=""
+                v-if="form.avatar"
+                style="width: 150px; height: 150px"
+              />
+              <el-upload
+                :show-file-list="false"
+                action="http://localhost:3000/posts"
+                list-type="picture-card"
+                v-if="!tag"
+                :on-success="handlePictureCardPreview"
+                :on-remove="handleRemove"
+              >
                 <i class="el-icon-plus"></i>
               </el-upload>
             </div>
           </el-form-item>
           <el-form-item label="联系电话">
-            <el-input v-model="form.mobile" :disabled="tag" style="width: 300px" placeholder="联系电话"></el-input>
+            <el-input
+              v-model="form.mobile"
+              :disabled="tag"
+              style="width: 300px"
+              placeholder="联系电话"
+            ></el-input>
           </el-form-item>
           <el-form-item label="工作时间">
             <div>
@@ -49,7 +78,7 @@
                   v-model="workTimeList.workeStartTime"
                   :picker-options="{
                     start: '06:00',
-                    step: '00:15',
+                    step: '01:00',
                     end: '23:00',
                   }"
                 >
@@ -60,7 +89,7 @@
                   v-model="workTimeList.workeEndTime"
                   :picker-options="{
                     start: '06:00',
-                    step: '00:15',
+                    step: '01:00',
                     end: '21:00',
                     minTime: workTimeList.workeStartTime,
                   }"
@@ -70,18 +99,46 @@
             </div>
           </el-form-item>
           <el-form-item label="绑定会员">
-            <div class="addBox" @click="dialogTableVisible = true">
-              <i class="el-icon-plus" v-if="!form.bindUid"></i>
-              <img :src="binduser.avatar" alt="" v-else />
+            <div class="flex-box">
+              <template
+                v-if="form.participants && form.participants.length > 0"
+              >
+                <div v-for="(item, index) in form.participants" :key="index">
+                  <div class="addBox">
+                    <img :src="item.avatar" alt="" />
+                  </div>
+                  <div class="mmda">
+                    {{ item.user_name }}
+                  </div>
+                  <div @click="cleanSelect" class="mmda rd">清除选择</div>
+                </div>
+              </template>
+              <div>
+                <div class="addBox" @click="dialogTableVisible = true">
+                  <i class="el-icon-plus" v-if="!form.bindUid"></i>
+                  <img :src="binduser.avatar" alt="" v-else />
+                </div>
+                <div class="mmda" v-if="form.participants">
+                  {{ form.participants.user_name }}
+                </div>
+              </div>
             </div>
-            <div class="mmda" v-if="form.bindUid">{{ binduser.user_name }}</div>
-            <div @click="cleanSelect" class="mmda rd" v-if="form.bindUid && this.$route.query.tag != 'look'">清除选择</div>
           </el-form-item>
         </el-form>
       </div>
-      <el-button type="primary" @click="onSubmit" v-if="this.$route.query.tag != 'look'">{{ this.$route.params.id ? "编辑商品" : "发布商品" }}</el-button>
+      <el-button
+        type="primary"
+        @click="onSubmit"
+        v-if="this.$route.query.tag != 'look'"
+        >{{ this.$route.params.id ? "编辑商品" : "发布商品" }}</el-button
+      >
     </div>
-    <userSelectDialog :dialogTitle="'选择家政绑定会员'" v-model="dialogTableVisible" @closeDialog="closeUserDialog" @childSelect="childSelect"></userSelectDialog>
+    <userSelectDialog
+      :dialogTitle="'选择家政绑定会员'"
+      v-model="dialogTableVisible"
+      @closeDialog="closeUserDialog"
+      @childSelect="childSelect"
+    ></userSelectDialog>
   </div>
 </template>
 <script>
@@ -126,11 +183,16 @@ export default {
     },
     getData() {
       $http
-        .post("apitest/homeMaking_list", { hmuid: this.$route.params.id }, "获取中")
+        .post(
+          "apitest/homeMaking_list",
+          { hmuid: this.$route.params.id },
+          "获取中"
+        )
         .then((response) => {
-          let _info = response.data;
+          let _info = response.data.data[0];
           this.form = _info;
-          this.workTimeList = _info.workTime;
+          console.log(_info);
+          this.workTimeList = _info.work;
           if (response.data.bindUid) {
             console.log(response.data.bindUid);
             this.binduser = response.data.bindUid;
@@ -181,11 +243,21 @@ export default {
       json.workTime = this.workTimeList;
       console.log(json, this.form, checkStatus);
       $http
-        .post(this.$route.params.id ? "apitest/updateWorkStatus" : "apitest/homeMakingAddUser", json, "获取中")
+        .post(
+          this.$route.params.id
+            ? "apitest/updateWorkStatus"
+            : "apitest/homeMakingAddUser",
+          json,
+          "获取中"
+        )
         .then((response) => {
-          this.visitorData = response.data;
-          this.$message.success("成功");
-          this.$router.replace({ name: "homework" });
+          if (response.result) {
+            this.visitorData = response.data;
+            this.$message.success("成功");
+            this.$router.replace({ name: "homework" });
+          } else {
+            this.$message.error(response.msg);
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -221,6 +293,9 @@ export default {
     margin-right: 15px;
     border-radius: 10px;
   }
+}
+.flex-box {
+  display: flex;
 }
 #addCurose {
   background: #f7f7f7;
@@ -298,6 +373,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  line-height: 20px;
 }
 .rd {
   color: #999;

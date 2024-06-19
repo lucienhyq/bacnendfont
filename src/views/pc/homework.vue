@@ -3,41 +3,65 @@
     <div class="btnAdd" @click="toAddGood">添加家政人员</div>
     <div class="searchBox">
       <div class="dline">
-        <el-input v-model="goodname" placeholder="搜索家政人员昵称/员工ID"></el-input>
+        <el-input
+          v-model="goodname"
+          placeholder="搜索家政人员昵称/员工ID"
+        ></el-input>
       </div>
       <div class="btn">搜索</div>
     </div>
-    <el-table :data="tableData" style="width: 100%" :cell-style="{ 'text-align': 'center' }" :header-cell-style="{ 'text-align': 'center' }">
-      <el-table-column prop="hmuid" label="员工ID" width="80"> </el-table-column>
-      <el-table-column prop="realname" label="昵称" width="100"> </el-table-column>
-      <el-table-column prop="workTime" label="价格/小时">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      :cell-style="{ 'text-align': 'center' }"
+      :header-cell-style="{ 'text-align': 'center' }"
+    >
+      <el-table-column prop="hmuid" label="员工ID" width="80">
+      </el-table-column>
+      <el-table-column prop="makingName" label="昵称" width="100">
+      </el-table-column>
+      <el-table-column prop="work" label="价格/小时">
         <template slot-scope="scope">
-          <div class="price">{{ scope.row.price }}/元</div>
+          <div class="price">{{ scope.row.work.price }}/元</div>
           <!-- <div class="price">上班时间 {{ scope.row.workTime.workeStartTime }}-{{ scope.row.workTime.workeEndTime }}</div> -->
         </template>
       </el-table-column>
-      <el-table-column prop="avatar" label="封面">
+      <el-table-column prop="img" label="封面">
         <template slot-scope="scope">
           <img :src="scope.row.avatar" class="imageS" alt="" />
         </template>
       </el-table-column>
-      <el-table-column prop="mobile" label="联系电话" width="150"> </el-table-column>
-      <el-table-column prop="creatUid.user_name" label="推荐人" width="150"> </el-table-column>
+      <el-table-column prop="mobile" label="联系电话" width="150">
+      </el-table-column>
+      <el-table-column prop="creatUid.user_name" label="创建人" width="150">
+      </el-table-column>
       <el-table-column prop="clientShow" label="平台是否显示" width="200">
         <template slot-scope="scope">
-          <el-switch v-model="scope.row.clientShow" @change="updateOne(scope.row)"></el-switch>
+          <el-switch
+            v-model="scope.row.clientShow"
+            @change="updateOne(scope.row)"
+          ></el-switch>
         </template>
       </el-table-column>
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <div>
-            <el-button type="text" size="small" @click="handleClick(scope.row)">编辑资料</el-button>
+            <el-button type="text" size="small" @click="handleClick(scope.row)"
+              >编辑资料</el-button
+            >
           </div>
           <div>
-            <el-button @click="delGood(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="delGood(scope.row)" type="text" size="small"
+              >删除</el-button
+            >
           </div>
           <div>
-            <el-button @click="handleClick(scope.row, 'read')" type="text" size="small">查看资料</el-button>
+            <el-button
+              @click="handleClick(scope.row, 'read')"
+              type="text"
+              size="small"
+              >查看资料</el-button
+            >
           </div>
         </template>
       </el-table-column>
@@ -71,7 +95,10 @@ export default {
     handleClick(e, key = "") {
       console.log(e, key);
       if (key) {
-        this.$router.push({ path: `/homeworkEdit/${e.hmuid}`, query: { tag: "look" } });
+        this.$router.push({
+          path: `/homeworkEdit/${e.hmuid}`,
+          query: { tag: "look" },
+        });
       } else {
         this.$router.push({ path: `/homeworkEdit/${e.hmuid}` });
       }

@@ -42,13 +42,14 @@ export default {
   components: { topNav, leftNav },
   mounted() {
     // this.getData();
+    document.title = "乐善后台";
   },
   watch: {
     $route(to, from) {
-      if (to.meta.title) {
-        document.title = to.meta.title;
-      }
-      this.routeNow = to.name;
+      // if (to.meta.title) {
+      //   document.title = to.meta.title;
+      // }
+      // this.routeNow = to.name;
     },
   },
   methods: {},

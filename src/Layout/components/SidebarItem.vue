@@ -1,6 +1,6 @@
 <template>
   <div v-if="!item.hidden">
-    <template v-if="hasOneShowingChild(item.children,item)">
+    <template v-if="hasOneShowingChild(item.children, item)">
       <el-menu-item
         :class="{ 'submenu-title-noDropdown': !isNest }"
         @click="tapClick(item)"
@@ -8,8 +8,7 @@
         <item :icon="item.meta.icon" :title="item.meta.title" />
       </el-menu-item>
     </template>
-    <template v-else-if="item.meta.hidden">
-    </template>
+    <template v-else-if="item.meta.hidden"> </template>
     <el-submenu v-else :index="toasix" ref="subMenu" popper-append-to-body>
       <template slot="title">
         <item
@@ -72,7 +71,7 @@ export default {
       this.$router.push({ name: `${item.name}` });
     },
     hasOneShowingChild(children = [], parent) {
-      if(parent.meta.hidden){
+      if (parent.meta.hidden) {
         return false;
       }
       const showingChildren = children.filter((item) => {

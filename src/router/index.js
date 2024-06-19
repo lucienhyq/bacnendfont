@@ -1,16 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import pcHome from "../views/pc/pcHome.vue";
 import login from "../views/pc/login.vue";
-import goodsPage from "../views/pc/goods.vue";
-import goodsEdit from "../views/pc/goodsEdit.vue";
 import indexHome from "../views/phone/indexHome.vue";
 import goodDetail from "../views/phone/goodDetail.vue";
-import homework from "../views/pc/homework.vue";
 import frintend from "./frontend";
 import login_m from "../views/phone/loginPhone.vue";
-import music_score_index from "../views/pc/music_score/music_score_index";
-import formSetting from "../views/pc/music_score/formSetting";
 import music_score_create from "../views/pc/music_score/music_score_create";
 import nestedRouter from "./modules/nested";
 import Layout from "@/Layout";
@@ -18,18 +12,17 @@ import Layout from "@/Layout";
 Vue.use(VueRouter);
 
 const routes = [
-  nestedRouter,
+  // {
+  //   path: "/",
+  //   name: "",
+  //   component: pcHome,
+  //   meta: {
+  //     title: "首页",
+  //     isPC: true,
+  //   },
+  // },
   {
     path: "/",
-    name: "",
-    component: pcHome,
-    meta: {
-      title: "首页",
-      isPC: true,
-    },
-  },
-  {
-    path: "/pcHome",
     name: "pcHome",
     component: Layout,
     redirect: "/pcHome",
@@ -43,6 +36,24 @@ const routes = [
         component: () => import("@/views/pc/pcHome"),
         name: "pcHome",
         meta: { title: "首页", noCache: true },
+      },
+    ],
+  },
+  {
+    path: "/member",
+    name: "member",
+    component: Layout,
+    redirect: "/memberList",
+    meta: {
+      title: "会员",
+      icon: "el-icon-user-solid",
+    },
+    children: [
+      {
+        path: "/memberList",
+        component: () => import("@/views/pc/member"),
+        name: "pcHome",
+        meta: { title: "会员" },
       },
     ],
   },
@@ -199,6 +210,7 @@ const routes = [
         },
       },
     ],
+    nestedRouter,
   },
 ].concat(frintend);
 const router = new VueRouter({

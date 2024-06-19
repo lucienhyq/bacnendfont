@@ -35,10 +35,10 @@ export default {
   components: { Side_barItem },
   mounted() {
     this.routearr = this.$router.options.routes;
-    let arr = this.routearr.filter((item) => {
-      return item.path != "/";
-    });
-    this.routearr = arr;
+    // let arr = this.routearr.filter((item) => {
+    //   return item.path != "/";
+    // });
+    // this.routearr = arr;
   },
   methods: {
     tapMenu(e, item) {
