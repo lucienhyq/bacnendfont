@@ -28,7 +28,7 @@
       </el-table-column>
       <el-table-column prop="img" label="封面">
         <template slot-scope="scope">
-          <img :src="scope.row.avatar" class="imageS" alt="" />
+          <img :src="scope.row.img" class="imageS" alt="" />
         </template>
       </el-table-column>
       <el-table-column prop="mobile" label="联系电话" width="150">

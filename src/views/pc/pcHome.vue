@@ -2,9 +2,7 @@
   <div class="pcHome">
     <div class="viewBox">
       <el-col style="margin-left: 1rem">
-        <div class="settingIndexPage">
-          <span>首页设置</span>
-        </div>
+        <div class="settingIndexPage"></div>
       </el-col>
       <!-- 访客组件 -->
       <el-col>

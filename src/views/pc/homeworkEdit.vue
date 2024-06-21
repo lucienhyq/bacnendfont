@@ -6,7 +6,7 @@
           <i class="el-icon-arrow-left"></i>
           返回列表
         </div>
-        <div class="title">添加商品</div>
+        <!-- <div class="title">添加商品</div> -->
       </div>
       <div class="formBox">
         <el-form
@@ -32,12 +32,12 @@
               form.clientShow ? "上架" : "下架"
             }}</span>
           </el-form-item>
-          <el-form-item label="家政人员照片">
+          <el-form-item label="家政图">
             <div class="flex">
               <img
-                :src="form.avatar"
+                :src="form.img"
                 alt=""
-                v-if="form.avatar"
+                v-if="form.img"
                 style="width: 150px; height: 150px"
               />
               <el-upload
@@ -68,12 +68,16 @@
               </div>
               <div class="instreBox">
                 <div class="title">价格：</div>
-                <el-input v-model="workTimeList.price"></el-input>
-                /小时
+                <el-input
+                  v-model="workTimeList.price"
+                  style="width: 100px"
+                ></el-input>
+                元/小时
               </div>
               <div class="instreBox">
                 <span>选择时间：</span>
                 <el-time-select
+                  style="width: 100px"
                   placeholder="开始时间"
                   v-model="workTimeList.workeStartTime"
                   :picker-options="{
@@ -85,6 +89,7 @@
                 </el-time-select>
                 --
                 <el-time-select
+                  style="width: 100px"
                   placeholder="结束时间"
                   v-model="workTimeList.workeEndTime"
                   :picker-options="{
@@ -98,7 +103,7 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item label="绑定会员">
+          <el-form-item label="参与员工">
             <div class="flex-box">
               <template
                 v-if="form.participants && form.participants.length > 0"
@@ -113,10 +118,9 @@
                   <div @click="cleanSelect" class="mmda rd">清除选择</div>
                 </div>
               </template>
-              <div>
+              <div v-if="this.$route.query.tag != 'look'">
                 <div class="addBox" @click="dialogTableVisible = true">
-                  <i class="el-icon-plus" v-if="!form.bindUid"></i>
-                  <img :src="binduser.avatar" alt="" v-else />
+                  <i class="el-icon-plus"></i>
                 </div>
                 <div class="mmda" v-if="form.participants">
                   {{ form.participants.user_name }}
@@ -171,11 +175,19 @@ export default {
   methods: {
     cleanSelect() {
       this.binduser = "";
-      this.form.bindUid = "";
+      this.form.participants = "";
     },
     childSelect(e) {
-      this.binduser = e;
-      this.form.bindUid = e._id;
+      this.form.participants = this.form.participants.concat(e);
+      let arr = this.form.participants;
+      let filarr = arr.filter((x, index, self) => {
+        var arrids = [];
+        arr.forEach((item, i) => {
+          arrids.push(item.id);
+        });
+        return arrids.indexOf(x.id) === index;
+      });
+      this.form.participants = filarr;
       this.dialogTableVisible = false;
     },
     closeUserDialog() {
@@ -191,14 +203,7 @@ export default {
         .then((response) => {
           let _info = response.data.data[0];
           this.form = _info;
-          console.log(_info);
           this.workTimeList = _info.work;
-          if (response.data.bindUid) {
-            console.log(response.data.bindUid);
-            this.binduser = response.data.bindUid;
-            this.form.bindUid = response.data.bindUid.id;
-            console.log(this.binduser, this.form);
-          }
         })
         .catch((err) => {
           console.log(err);
@@ -210,7 +215,7 @@ export default {
       console.log(this.form);
     },
     handlePictureCardPreview(file) {
-      this.$set(this.form, "avatar", file.data);
+      this.$set(this.form, "img", file.data);
       this.form.avatar = file.data;
     },
     toBlack() {
@@ -241,7 +246,7 @@ export default {
         json.hmuid = this.$route.params.id;
       }
       json.workTime = this.workTimeList;
-      console.log(json, this.form, checkStatus);
+      console.log(json, checkStatus);
       $http
         .post(
           this.$route.params.id

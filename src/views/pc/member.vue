@@ -14,16 +14,16 @@
         placeholder="请输入会员姓名"
         style="width: 400px; margin-right: 20px"
       ></el-input>
-      <el-select v-model="value" placeholder="会员类型">
+      <el-select v-model="select_value" placeholder="会员类型">
         <el-option
-          v-for="item in options"
+          v-for="item in options_arr"
           :key="item.value"
           :label="item.label"
           :value="item.value"
         >
         </el-option>
       </el-select>
-      <el-button style="margin-left: 20px" type="info">搜索</el-button>
+      <el-button style="margin-left: 20px" type="info" @click="searchM">搜索</el-button>
       <el-button style="margin-left: 20px" type="primary">添加会员</el-button>
     </div>
     <div class="list">
@@ -43,7 +43,9 @@ export default {
     return {
       memebrId: "",
       keyword: "",
-      options: [
+      tableData: [],
+      select_value: "",
+      options_arr: [
         {
           value: "1",
           label: "管理员",
@@ -67,6 +69,22 @@ export default {
     goBack() {
       this.$router.go(-1);
       console.log();
+    },
+    searchM(){
+
+    },
+    getData() {
+      $http
+        .get("memberList", {}, "获取中")
+        .then((response) => {
+          if (response.result) {
+            this.tableData = response.data;
+            console.log(response.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
