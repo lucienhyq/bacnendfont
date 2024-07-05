@@ -52,7 +52,7 @@ const routes = [
       {
         path: "/memberList",
         component: () => import("@/views/pc/member"),
-        name: "pcHome",
+        name: "memberList",
         meta: { title: "会员" },
       },
     ],

@@ -64,10 +64,14 @@ export default {
   },
   methods: {
     tapClick(item) {
-      console.log(item.name, this.$route);
-      // if (this.$route.name == item.name) {
-      //   return;
-      // }
+      const currentRouteName = this.$route.path;
+
+      // 如果点击的菜单项名称与当前路由名称相同，则不执行跳转操作
+      if (item.name === currentRouteName || item.redirect == currentRouteName) {
+        console.log("已经在当前页面，无需跳转");
+        return;
+      }
+
       try {
         this.$router.push({ name: `${item.name}` });
       } catch (error) {}
