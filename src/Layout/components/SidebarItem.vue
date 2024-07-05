@@ -64,11 +64,13 @@ export default {
   },
   methods: {
     tapClick(item) {
-      console.log(item, this.$route.name);
-      if (this.$route.name == item.name) {
-        return;
-      }
-      this.$router.push({ name: `${item.name}` });
+      console.log(item.name, this.$route);
+      // if (this.$route.name == item.name) {
+      //   return;
+      // }
+      try {
+        this.$router.push({ name: `${item.name}` });
+      } catch (error) {}
     },
     hasOneShowingChild(children = [], parent) {
       if (parent.meta.hidden) {

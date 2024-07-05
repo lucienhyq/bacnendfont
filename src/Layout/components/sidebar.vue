@@ -35,12 +35,27 @@ export default {
   components: { Side_barItem },
   mounted() {
     this.routearr = this.$router.options.routes;
-    // let arr = this.routearr.filter((item) => {
-    //   return item.path != "/";
-    // });
-    // this.routearr = arr;
+    this.getData();
+    console.log(this.routearr, "wwwwwwwww");
   },
   methods: {
+    async getData() {
+      let { data, result, msg } = await $http.get("homeSidebar", {}, "");
+      console.log(data);
+      if (result) {
+        let qxarr = data;
+        let authorizedRoutes = this.routearr.filter((route) =>
+          qxarr.includes(route.name)
+        );
+        console.log(authorizedRoutes);
+        this.routearr = authorizedRoutes;
+      } else {
+        this.$message({
+          message: msg,
+          type: "error",
+        });
+      }
+    },
     tapMenu(e, item) {
       console.log(item);
       this.$router.push({ path: `${item.redirect}` });
