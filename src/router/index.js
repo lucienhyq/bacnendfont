@@ -58,6 +58,24 @@ const routes = [
     ],
   },
   {
+    path: "/cardHome",
+    name: "cardHome",
+    component: Layout,
+    redirect: "/cardHome",
+    meta: {
+      title: "名片",
+      icon: "el-icon-s-order",
+    },
+    children: [
+      {
+        path: "/cardHome",
+        component: () => import("@/views/pc/cardHome"),
+        name: "cardHome",
+        meta: { title: "名片", noCache: true },
+      },
+    ],
+  },
+  {
     path: "/OrderPage",
     name: "OrderPage",
     component: Layout,
