@@ -5,22 +5,22 @@
         <div class="vue-main-title-left"></div>
         <div class="vue-main-title-content">卡片设置</div>
       </div>
-      <el-form ref="form" :model="form" label-width="100px">
-        <el-form-item label="公司名称">
+      <el-form ref="form" :model="form" label-width="150px">
+        <el-form-item label="公司名称" required>
           <el-input
             v-model="form.company_name"
             style="width: 250px"
             placeholder="输入公司名称"
           ></el-input>
         </el-form-item>
-        <el-form-item label="公司地址">
+        <el-form-item label="公司地址" required>
           <el-input
             v-model="form.company_address"
             style="width: 250px"
             placeholder="输入公司名称"
           ></el-input>
         </el-form-item>
-        <el-form-item label="公司发展历程">
+        <el-form-item label="公司发展历程" required>
           <div class="addOption">
             <el-button @click="add_dateHistory" type="primary">添加</el-button>
           </div>
@@ -48,11 +48,34 @@
             >
           </div>
         </el-form-item>
+        <el-form-item label="公司业务" required>
+          <div class="addOption">
+            <el-button @click="add_dateHistory" type="primary">添加</el-button>
+          </div>
+          <div
+            class="historyList"
+            v-for="(item, index) in form.main_business"
+            :key="index"
+          >
+            <el-input
+              v-model="item.text"
+              style="width: 100px"
+              placeholder="业务称谓"
+            ></el-input>
+            <el-button
+              @click="delDateOption(index)"
+              type="info"
+              style="margin-left: 10px"
+              >删除</el-button
+            >
+          </div>
+        </el-form-item>
         <el-form-item label="公司简介">
           <quillEditor
-            :contenInfo="form.c"
+            :contenInfo="form.contenRow"
             :disabled="tag"
             @quillBlur="quillBlur"
+            ref="quillChild"
           ></quillEditor>
         </el-form-item>
       </el-form>
@@ -70,25 +93,40 @@ export default {
       form: {
         company_name: "",
         company_address: "",
-        contenRow: [],
+        contenRow: "",
         development_history: [],
+        main_business: [],
       },
       tag: false,
+      info: [],
     };
   },
   components: { quillEditor },
+  activated() {
+    this.getData();
+  },
   methods: {
     quillBlur(e) {
       this.form.contenRow = e;
     },
-    save_Post() {
+    async save_Post() {
       let json = {
         company_name: this.form.company_name,
         company_address: this.form.company_address,
         company_desc: this.form.contenRow,
         development_history: this.form.development_history,
+        main_business: this.form.main_business,
       };
-      console.log(json);
+      let { data, msg, result } = await $http.post(
+        "card/setting/save",
+        json,
+        "获取中"
+      );
+      if (result) {
+        this.$message.success(msg);
+      } else {
+        this.$message.error(msg);
+      }
     },
     add_dateHistory() {
       this.form.development_history.push({
@@ -96,8 +134,34 @@ export default {
         desc: "",
       });
     },
+    add_main() {
+      this.form.main_business.push({
+        text: "",
+        icon: "",
+      });
+    },
+    delDateMain(index) {
+      this.form.main_business.splice(index, 1);
+    },
     delDateOption(index) {
       this.form.development_history.splice(index, 1);
+    },
+    async getData() {
+      let { data, msg, result } = await $http.post(
+        "card/card_Index",
+        {},
+        "获取中"
+      );
+      if (result) {
+        this.form.company_name = data.company_name;
+        this.form.company_address = data.company_address;
+        this.form.development_history = data.development_history;
+        this.form.contenRow = data.company_desc;
+        this.form.main_business = data.main_business;
+        this.$refs.quillChild.content = this.form.contenRow;
+      } else {
+        this.$message.error(msg);
+      }
     },
   },
 };
