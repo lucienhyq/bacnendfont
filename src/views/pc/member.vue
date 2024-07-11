@@ -35,8 +35,43 @@
     </div>
     <div class="list">
       <el-table :data="tableData" border style="width: 100%">
-        <el-table-column prop="id" label="ID" width="180"> </el-table-column>
-        <el-table-column prop="user_name" label="姓名" width="180">
+        <el-table-column prop="id" label="ID" width="100" :align="'center'">
+        </el-table-column>
+        <el-table-column
+          prop="user_name"
+          label="姓名"
+          width="200"
+          :align="'center'"
+        >
+          <template slot-scope="scope">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <img
+                :src="scope.row.avatar"
+                alt=""
+                style="width: 30px; height: 30px; border-radius: 50%"
+              />
+              <span>{{ scope.row.user_name }}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column
+          prop="admin"
+          label="会员角色"
+          width="150"
+          :align="'center'"
+        >
+          <template slot-scope="scope">
+            <div style="text-align: center">
+              {{ scope.row.admin == 1 ? "管理员" : "用户" }}
+            </div>
+          </template>
         </el-table-column>
         <el-table-column prop="mobile" label="联系电话"> </el-table-column>
         <el-table-column prop="createdAt" label="创建时间">
