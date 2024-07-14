@@ -181,13 +181,15 @@ export default {
         "获取中"
       );
       if (result) {
-        this.form.company_name = data.data.company_name;
-        this.form.company_address = data.data.company_address;
-        this.form.development_history = data.data.development_history;
-        this.form.contenRow = data.data.company_desc;
-        this.form.main_business = data.data.main_business;
-        this.form.team_style = data.data.team_style;
-        this.$refs.quillChild.content = this.form.contenRow;
+        if (data.data) {
+          this.form.company_name = data.data.company_name;
+          this.form.company_address = data.data.company_address;
+          this.form.development_history = data.data.development_history;
+          this.form.contenRow = data.data.company_desc;
+          this.form.main_business = data.data.main_business;
+          this.form.team_style = data.data.team_style;
+          this.$refs.quillChild.content = this.form.contenRow;
+        }
       } else {
         this.$message.error(msg);
       }
