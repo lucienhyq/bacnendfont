@@ -195,6 +195,7 @@ export default {
       }
     },
     handlePictureCardPreview(file) {
+      console.log(this.form.team_style,'wwwwwwwww')
       this.form.team_style.push(file.data);
       console.log(this.form.team_style, "team_style");
     },
@@ -212,11 +213,13 @@ export default {
     margin-right: 15px;
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 10px;
     .imgShow {
       width: 148px;
       height: 148px;
       border-radius: 10px;
       margin-right: 15px;
+      margin-bottom: 10px;
       img {
         width: 100%;
         height: 100%;

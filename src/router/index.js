@@ -73,6 +73,12 @@ const routes = [
         name: "cardHome",
         meta: { title: "名片", noCache: true },
       },
+      {
+        path: "/card_plugin",
+        component: () => import("@/views/pc/card_plugin"),
+        name: "card_plugin",
+        meta: { title: "名片导航", noCache: true },
+      },
     ],
   },
   {
