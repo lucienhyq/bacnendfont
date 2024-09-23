@@ -1,6 +1,6 @@
 <template>
   <div id="app" :class="[$route.meta.isPC ? 'pcStyle_bg' : 'pcStyle_bg_none']">
-    <template v-if="$route.meta.isPC">
+    <template v-if="isPc()">
       <router-view></router-view>
     </template>
     <template v-else>

@@ -105,16 +105,22 @@
     >
       <el-form :model="form" ref="form" label-width="100px">
         <el-form-item label="会员名称">
-          <el-input v-model="form.user_name" :readonly="!addShow"></el-input>
+          <el-input
+            v-model="form.user_name"
+            :readonly="!addShow || isEdit"
+          ></el-input>
         </el-form-item>
         <el-form-item label="会员手机号">
-          <el-input v-model="form.mobile" :readonly="!addShow"></el-input>
+          <el-input
+            v-model="form.mobile"
+            :readonly="!addShow || isEdit"
+          ></el-input>
         </el-form-item>
-        <template v-if="addShow">
+        <template v-if="addShow || isEdit">
           <el-form-item label="会员密码">
             <el-input v-model="form.password"></el-input>
           </el-form-item>
-          <div style="display: flex; justify-content: flex-end">
+          <div style="display: flex; justify-content: flex-end" v-if="!isEdit">
             <el-button type="info" @click="saveAddMember">添加会员</el-button>
           </div>
         </template>
@@ -122,6 +128,13 @@
           <el-form-item label="创建时间">
             <el-input :value="convertTimestamp(form.createdAt)"></el-input>
           </el-form-item>
+        </template>
+        <template v-if="isEdit">
+          <div style="display: flex; justify-content: center">
+            <el-button type="info" @click="saveAddMember"
+              >更新会员信息</el-button
+            >
+          </div>
         </template>
       </el-form>
     </el-dialog>
@@ -140,6 +153,7 @@ export default {
         name: "",
         mobile: "",
         password: "",
+        user_name: "",
       },
       isEdit: false,
       addShow: false,
@@ -230,13 +244,25 @@ export default {
       console.log();
     },
     searchM() {},
-    saveAddMember() {
+    async saveAddMember() {
       let params = {
         name: this.form.user_name,
         phone: this.form.mobile,
         password: this.form.password,
       };
-      console.log(params);
+      let { data, result, msg } = await $http.post(
+        this.isEdit ? "memberEdit" : "memberAdd",
+        {},
+        "获取中"
+      );
+      console.log(params, data, result, msg);
+      if (result) {
+        this.$toast(msg);
+        this.dialogVisible = false;
+      } else {
+        this.$toast(msg);
+        this.dialogVisible = false;
+      }
     },
     getData() {
       $http

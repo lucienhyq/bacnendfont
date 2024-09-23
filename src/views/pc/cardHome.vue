@@ -13,6 +13,13 @@
             placeholder="输入公司名称"
           ></el-input>
         </el-form-item>
+        <el-form-item label="联系我们" required>
+          <el-input
+            v-model="form.phone"
+            style="width: 250px"
+            placeholder="请输入联系电话"
+          ></el-input>
+        </el-form-item>
         <el-form-item label="公司地址" required>
           <el-input
             v-model="form.company_address"
@@ -123,6 +130,7 @@ export default {
         development_history: [],
         main_business: [],
         team_style: [],
+        phone:''
       },
       tag: false,
       info: [],
@@ -131,6 +139,9 @@ export default {
   components: { quillEditor },
   activated() {
     this.getData();
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 500);
   },
   methods: {
     quillBlur(e) {
@@ -144,6 +155,7 @@ export default {
         development_history: this.form.development_history,
         main_business: this.form.main_business,
         team_style: this.form.team_style,
+        phone:this.form.phone
       };
       let { data, msg, result } = await $http.post(
         "card/setting/save",
@@ -189,15 +201,14 @@ export default {
           this.form.main_business = data.data.main_business;
           this.form.team_style = data.data.team_style;
           this.$refs.quillChild.content = this.form.contenRow;
+          this.form.phone = data.data.phone;
         }
       } else {
         this.$message.error(msg);
       }
     },
     handlePictureCardPreview(file) {
-      console.log(this.form.team_style,'wwwwwwwww')
       this.form.team_style.push(file.data);
-      console.log(this.form.team_style, "team_style");
     },
     handleRemove(e) {
       console.log(e);
