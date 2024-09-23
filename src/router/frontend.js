@@ -63,7 +63,7 @@ export default [
     path: "/homeM",
     component: homeM,
     name: "homeM",
-    meta: { title: "首页", hidden: true },
+    meta: { title: "首页", hidden: true ,isPC:false},
   },
   
   

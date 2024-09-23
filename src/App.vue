@@ -1,6 +1,22 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
+  <div id="app" :class="[$route.meta.isPC ? 'pcStyle_bg' : 'pcStyle_bg_none']">
+    <template v-if="$route.meta.isPC">
+      <router-view></router-view>
+    </template>
+    <template v-else>
+      <div
+        style="
+          width: 375px;
+          margin: 0 auto;
+          background-color: #f5f5f5;
+          height: 100%;
+        "
+      >
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </div>
+    </template>
   </div>
   <!-- <div id="app" :class="[$route.meta.isPC ? 'pcStyle_bg' : 'pcStyle_bg_none']">
     <template v-if="$route.meta.isPC">
@@ -52,7 +68,19 @@ export default {
       // this.routeNow = to.name;
     },
   },
-  methods: {},
+  methods: {
+    isPc() {
+      if (
+        navigator.userAgent.match(
+          /(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+        )
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+  },
 };
 </script>
 <style lang="scss">

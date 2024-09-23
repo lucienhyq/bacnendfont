@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    1111111
     <div class="list">
       <div class="lis" v-for="(item, index) in goodsinfo" :key="index">
         <img :src="item.goodimg" alt="" />
@@ -29,10 +30,11 @@ export default {
     },
     onClickLeft() {},
     getData() {
+      console.log('dddddddddd')
       $http
-        .post("courseList", {}, "获取中")
+        .post("card/card_Index", {}, "获取中")
         .then((response) => {
-          console.log(response.data);
+          console.log(response,'dddddddd')
           this.goodsinfo = response.data.list;
         })
         .catch((err) => {
