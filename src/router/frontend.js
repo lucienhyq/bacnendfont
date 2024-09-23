@@ -1,7 +1,7 @@
 // const homeM = r => require(["../views/mobile/home.vue"])
 import homeM from "../views/mobile/home.vue";
-import homeworkEdit from "../views/pc/homeworkEdit.vue";
-import OrderPage from "../views/pc/OrderPage.vue";
+// import homeworkEdit from "../views/pc/homeworkEdit.vue";
+// import OrderPage from "../views/pc/OrderPage.vue";
 import imageList from "../views/phone/imageList.vue";
 import news from "../views/phone/news.vue";
 import goodDetail_news from "../views/phone/goodDetail_news.vue";
@@ -63,8 +63,6 @@ export default [
     path: "/homeM",
     component: homeM,
     name: "homeM",
-    meta: { title: "首页", hidden: true ,isPC:false},
+    meta: { title: "首页", hidden: true, isPC: false },
   },
-  
-  
 ];

@@ -5,12 +5,14 @@ import store from "./store";
 import Http from "./tool/http";
 window.$http = Http;
 Vue.config.productionTip = false;
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
 import VueQuillEditor from "vue-quill-editor";
 Vue.use(VueQuillEditor);
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import cTitle from "./components/title.vue";
+Vue.component("c-title", cTitle); //全局自定义组件
 Vue.use(ElementUI);
 // vant的弹窗组件 $dialog
 // 按需引入vant组件
@@ -83,7 +85,7 @@ import {
   IndexBar,
   IndexAnchor,
   Popover as Popover1,
-  Form as VantForm
+  Form as VantForm,
 } from "vant";
 
 // 使用vant组件

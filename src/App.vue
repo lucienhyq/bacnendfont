@@ -1,7 +1,9 @@
 <template>
   <div id="app" :class="[$route.meta.isPC ? 'pcStyle_bg' : 'pcStyle_bg_none']">
-    <template v-if="isPc()">
-      <router-view></router-view>
+    <template v-if="!isPc() && !$route.meta.isPC">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </template>
     <template v-else>
       <div
@@ -58,7 +60,7 @@ export default {
   components: { topNav, leftNav },
   mounted() {
     // this.getData();
-    document.title = "乐善后台";
+    document.title = "乐善";
   },
   watch: {
     $route(to, from) {
@@ -102,13 +104,12 @@ body {
   background: #f5f5f5;
   min-height: 100vh;
 }
-.pcStyle {
-  // width: 1200px;
-  // margin: 0 auto;
-  flex: 1;
-  display: flex;
-  background: #eff3f6;
-}
+// .pcStyle {
+//   // width: 1200px;
+//   // margin: 0 auto;
+//   flex: 1;
+//   display: flex;
+// }
 .flex_d_c {
   display: flex;
   flex-direction: column;
