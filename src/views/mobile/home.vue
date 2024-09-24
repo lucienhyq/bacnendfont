@@ -2,6 +2,18 @@
   <div class="home">
     <c-title :text="'乐善资讯'"></c-title>
     <div class="box-wrap">最新NBA资讯</div>
+    <div class="bannerBox">
+      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+        <van-swipe-item v-for="(item, index) in navList" :key="index">
+          <div class="swipeItemBox">
+            <img :src="item.thumb" alt="" />
+            <div class="banner-text">
+              <div class="title">{{ item.title }}</div>
+            </div>
+          </div>
+        </van-swipe-item>
+      </van-swipe>
+    </div>
     <div class="list-wrap" v-if="info.length > 0">
       <div
         class="new-warp"
@@ -23,6 +35,7 @@ export default {
   data() {
     return {
       info: [],
+      navList: [],
     };
   },
   activated() {
@@ -53,8 +66,8 @@ export default {
         "获取中"
       );
       if (result) {
-        this.info = data;
-        console.log(this.info);
+        this.info = data.list;
+        this.navList = data.navList;
       } else {
         this.$toast(msg);
       }
@@ -63,6 +76,28 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.bannerBox {
+  height: 12rem;
+  .my-swipe {
+    width: 100%;
+    height: 100%;
+    .swipeItemBox {
+      height: 100%;
+      position: relative;
+      .banner-text{
+        position: absolute;
+        bottom: 0;
+        left: 10px;
+        color: #f6f6f6;
+        font-size: 14px;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
 .box-wrap {
   margin: 0.7rem;
   color: #999999;
