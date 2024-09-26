@@ -1,7 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import login from "../views/pc/login.vue";
-import indexHome from "../views/phone/indexHome.vue";
+// import indexHome from "../views/phone/indexHome.vue";
+// const homeM = r => require(["../views/mobile/home.vue"])
+import indexHome from "../views/mobile/home.vue";
+
 import goodDetail from "../views/phone/goodDetail.vue";
 import frintend from "./frontend";
 import login_m from "../views/phone/loginPhone.vue";

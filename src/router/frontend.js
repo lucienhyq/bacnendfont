@@ -1,5 +1,5 @@
 // const homeM = r => require(["../views/mobile/home.vue"])
-import homeM from "../views/mobile/home.vue";
+// import homeM from "../views/mobile/home.vue";
 // import homeworkEdit from "../views/pc/homeworkEdit.vue";
 // import OrderPage from "../views/pc/OrderPage.vue";
 import imageList from "../views/phone/imageList.vue";
@@ -7,6 +7,7 @@ import news from "../views/phone/news.vue";
 import goodDetail_news from "../views/phone/goodDetail_news.vue";
 import homeMaking_index from "../views/phone/homeMaking/homeMaking_index.vue";
 import diyformPage from "../views/phone/diyform";
+import newDetail from "../views/mobile/newDetail.vue";
 export default [
   {
     path: "/diyform/:id?",
@@ -60,9 +61,15 @@ export default [
     meta: { title: "图片列表", hidden: true },
   },
   {
-    path: "/homeM",
-    component: homeM,
-    name: "homeM",
-    meta: { title: "首页", hidden: true, isPC: false },
+    path: "/newDetail/:id?",
+    component: newDetail,
+    name: "newDetail",
+    meta: { title: "新闻详情", hidden: true, isPC: false },
   },
+  // {
+  //   path: "/homeM",
+  //   component: homeM,
+  //   name: "homeM",
+  //   meta: { title: "首页", hidden: true, isPC: false },
+  // },
 ];

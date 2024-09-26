@@ -4,7 +4,11 @@
     <div class="box-wrap">最新NBA资讯</div>
     <div class="bannerBox">
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-        <van-swipe-item v-for="(item, index) in navList" :key="index">
+        <van-swipe-item
+          v-for="(item, index) in navList"
+          :key="index"
+          @click="toDetail(item)"
+        >
           <div class="swipeItemBox">
             <img :src="item.thumb" alt="" />
             <div class="banner-text">
@@ -19,7 +23,7 @@
         class="new-warp"
         v-for="(item, index) in info"
         :key="index"
-        @click="toNbaLink(item)"
+        @click="toDetail(item)"
       >
         <!-- <a href=""></a> -->
         <div class="img-box">
@@ -42,22 +46,9 @@ export default {
     this.getData();
   },
   methods: {
-    async toNbaLink(item) {
-      // console.log(item);
-      // // https://mchina.nba.cn/article/2409231034375301?column=&exposure_page=&exposure_module=
-      // window.location.href = `https://mchina.nba.cn/article/${item.news_id}?column=&exposure_page=&exposure_module=`
-      let { data, result, msg } = await $http.get(
-        "apitest/getNbaNews",
-        {
-          news_id: item.news_id,
-        },
-        "获取中"
-      );
-      if (result) {
-        console.log(data);
-      } else {
-        this.$toast(msg);
-      }
+    toDetail(item) {
+      console.log(item);
+      this.$router.push({ path: `/newDetail/${item.news_id}` });
     },
     async getData() {
       let { data, result, msg } = await $http.get(
@@ -84,7 +75,7 @@ export default {
     .swipeItemBox {
       height: 100%;
       position: relative;
-      .banner-text{
+      .banner-text {
         position: absolute;
         bottom: 0;
         left: 10px;
@@ -125,7 +116,6 @@ export default {
   .img-box {
     width: 100%;
     border-radius: 10px;
-    aspect-ratio: 4 / 4;
     background-color: #f6f6f6;
     overflow: hidden;
     display: flex;
