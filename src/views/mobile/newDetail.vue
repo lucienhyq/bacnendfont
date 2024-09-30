@@ -39,6 +39,7 @@ export default {
   methods: {
     init() {
       this.dataInfo = [];
+      this.cnt_attr = [];
     },
     async getData() {
       let { data, result, msg } = await $http.get(

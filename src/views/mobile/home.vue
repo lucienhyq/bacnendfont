@@ -1,6 +1,19 @@
 <template>
   <div class="home">
     <c-title :text="'乐善资讯'"></c-title>
+    <van-sticky>
+      <van-search
+        v-model="keyWord"
+        show-action
+        placeholder="查找球星"
+        @search="onSearch"
+        shape="round"
+      >
+        <template #action>
+          <div @click="onSearch">搜索</div>
+        </template>
+      </van-search>
+    </van-sticky>
     <div class="box-wrap">最新NBA资讯</div>
     <div class="bannerBox">
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -40,14 +53,17 @@ export default {
     return {
       info: [],
       navList: [],
+      keyWord: "",
     };
   },
   activated() {
     this.getData();
   },
   methods: {
+    onSearch() {
+      console.log(this.keyWord, "dddddd");
+    },
     toDetail(item) {
-      console.log(item);
       this.$router.push({ path: `/newDetail/${item.news_id}` });
     },
     async getData() {
