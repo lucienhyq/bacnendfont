@@ -66,6 +66,14 @@ export default [
     name: "newDetail",
     meta: { title: "新闻详情", hidden: true, isPC: false },
   },
+  {
+    path: "/nbaStartList",
+    component: () => {
+      return import("../views/mobile/nbaStartList");
+    },
+    name: "nbaStartList",
+    meta: { title: "球星列表", hidden: true, isPC: false },
+  },
   // {
   //   path: "/homeM",
   //   component: homeM,

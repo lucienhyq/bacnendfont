@@ -45,6 +45,7 @@
         <div class="title-box">{{ item.title }}</div>
       </div>
     </div>
+    <div v-if="info.length < total" class="moreText">点击加载更多</div>
   </div>
 </template>
 <script>
@@ -54,14 +55,18 @@ export default {
       info: [],
       navList: [],
       keyWord: "",
+      total: 0,
     };
   },
   activated() {
     this.getData();
   },
   methods: {
-    onSearch() {
-      console.log(this.keyWord, "dddddd");
+    async onSearch() {
+      this.$router.push({
+        name: "nbaStartList",
+        params: { name: this.keyWord },
+      });
     },
     toDetail(item) {
       this.$router.push({ path: `/newDetail/${item.news_id}` });
@@ -75,6 +80,7 @@ export default {
       if (result) {
         this.info = data.list;
         this.navList = data.navList;
+        this.total = data.total;
       } else {
         this.$toast(msg);
       }
@@ -83,6 +89,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.moreText {
+  color: #999999;
+  text-align: center;
+  font-size: 0.75rem;
+  margin: 1rem 0;
+}
 .bannerBox {
   height: 12rem;
   .my-swipe {
@@ -93,10 +105,13 @@ export default {
       position: relative;
       .banner-text {
         position: absolute;
+        width: 100%;
         bottom: 0;
-        left: 10px;
+        left: 0;
+        padding-left: 1rem;
         color: #f6f6f6;
         font-size: 14px;
+        background: rgba(0,0,0,0.3);
       }
       img {
         width: 100%;

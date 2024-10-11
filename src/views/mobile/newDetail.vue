@@ -7,6 +7,7 @@
       <span class="time-created-at">{{
         dataInfo.updated_time ? dataInfo.updated_time : dataInfo.publish_time
       }}</span>
+      <span class="pageView">浏览量:{{ dataInfo.pageviews }}</span>
     </div>
     <div class="content" v-for="(item, index) in cnt_attr" :key="index">
       <img
@@ -50,6 +51,7 @@ export default {
       if (result) {
         this.dataInfo = data;
         let arr = [];
+        console.log(this.dataInfo);
         for (let i = 0; i < this.dataInfo.cnt_attr.length; i++) {
           this.dataInfo.cnt_attr[i].object = JSON.parse(
             this.dataInfo.cnt_attr[i].object
@@ -58,7 +60,7 @@ export default {
         }
         this.cnt_attr = arr;
         console.log(this.cnt_attr);
-        window.scrollTo(0,0)
+        window.scrollTo(0, 0);
       } else {
         this.$toast(msg);
       }
@@ -76,22 +78,27 @@ export default {
   }
   .time {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     text-align: left;
-    line-height: 1.5625rem;
     height: 1.5625rem;
     margin-bottom: 1.25rem;
     margin-top: 0.8438rem;
+    .author {
+      color: #3b3b4a;
+      font-size: 0.875rem;
+      margin-right: 0.625rem;
+    }
+    .pageView {
+      color: #3b3b4a;
+      font-size: 0.875rem;
+      margin-left: 0.625rem;
+    }
+    .time-created-at {
+      color: #aaaab3;
+      font-size: 0.8125rem;
+    }
   }
-  .author {
-    color: #3b3b4a;
-    font-size: 0.875rem;
-    margin-right: 0.625rem;
-  }
-  .time-created-at {
-    color: #aaaab3;
-    font-size: 0.8125rem;
-  }
+
   .content {
     width: 100%;
     font-size: 16px;
