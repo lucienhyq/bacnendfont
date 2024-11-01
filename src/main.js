@@ -11,8 +11,8 @@ import VueQuillEditor from "vue-quill-editor";
 Vue.use(VueQuillEditor);
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
-import cTitle from "./components/title.vue";
-Vue.component("c-title", cTitle); //全局自定义组件
+// import cTitle from "./components/title.vue";
+// Vue.component("c-title", cTitle); //全局自定义组件
 Vue.use(ElementUI);
 // vant的弹窗组件 $dialog
 // 按需引入vant组件
