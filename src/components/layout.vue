@@ -11,18 +11,12 @@
         <div class="right-head-menu"></div>
       </el-header>
       <el-container>
-        <!-- <el-aside
-          width="10rem"
-          class="aside"
-          
-          >Aside</el-aside
-        > -->
         <submenu></submenu>
         <el-container>
-          <el-main style="padding: 0">
+          <el-main style="padding: 0 0.5rem">
             <router-view />
           </el-main>
-          <el-footer>Footer</el-footer>
+          <el-footer>Footer页脚</el-footer>
         </el-container>
       </el-container>
     </el-container>

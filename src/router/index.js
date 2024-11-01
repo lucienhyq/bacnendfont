@@ -21,24 +21,7 @@ const routes = [
     },
     hidden: true,
   },
-  {
-    path: "/pcHome",
-    component: Layout,
-    redirect: "/pcHome/index",
-    name: "pcHome",
-    meta: {
-      title: "首页",
-    },
-    children: [
-      {
-        path: "/pcHome/index",
-        component: () => import("@/views/pc/home.vue"),
-        name: "pcHomeIndex",
-        hidden: true,
-        meta: { title: "首页", is_role: true },
-      },
-    ],
-  },
+
   {
     path: "/mobile",
     component: home,
@@ -53,10 +36,55 @@ const routes = [
     redirect: "/mobile",
   },
 ];
+const asyncRouterMap = [
+  {
+    path: "/pcHome",
+    component: Layout,
+    redirect: "/pcHome/index",
+    name: "pcHome",
+    meta: {
+      title: "首页",
+    },
+    children: [
+      {
+        path: "/pcHome/index",
+        component: () => import("@/views/pc/home.vue"),
+        name: "pcHomeIndex",
+        hidden: true,
+        meta: { title: "首页", is_role: true, icon: "el-icon-s-home" },
+      },
+    ],
+  },
+  {
+    path: "/memberPage",
+    component: Layout,
+    redirect: "/member/index",
+    name: "memberPage",
+    meta: {
+      title: "会员",
+    },
+    children: [
+      {
+        path: "/member/index",
+        component: () => import("@/views/pc/member/index.vue"),
+        name: "memberIndex",
+        hidden: true,
+        meta: { title: "会员", is_role: true, icon: "el-icon-user-solid" },
+      },
+    ],
+  },
+];
 const router = new VueRouter({
   routes,
 });
+// 动态添加路由
+function addAsyncRoutes(routes) {
+  routes.forEach((route) => {
+    router.addRoute(route);
+  });
+}
 
+addAsyncRoutes(asyncRouterMap);
 router.afterEach((to, from) => {
   // 在路由切换完成后执行的逻辑
   // console.log("路由切换完成");
