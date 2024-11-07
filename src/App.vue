@@ -1,6 +1,13 @@
 <template>
   <div id="app">
-    <router-view />
+    <template v-if="isPc() && !$route.meta.is_mobile">
+      <router-view />
+    </template>
+    <div class="appMain" v-if="$route.meta.is_mobile" :class="[isPc() ? 'pcStyle' : '']">
+      <keep-alive>
+        <router-view />
+      </keep-alive>
+    </div>
   </div>
 </template>
 <script>
@@ -9,7 +16,9 @@ export default {
     return {};
   },
   components: {},
-  mounted() {},
+  mounted() {
+    console.log(this.isPc(),this.$route);
+  },
   methods: {
     isPc() {
       if (
@@ -26,6 +35,19 @@ export default {
 };
 </script>
 <style lang="scss">
+#app {
+  background: #f5f5f5;
+  min-height: 100vh;
+  .appMain {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+  }
+  .pcStyle {
+    width: 375px;
+  }
+}
 body {
   padding: 0;
   margin: 0;

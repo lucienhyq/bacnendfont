@@ -8,11 +8,6 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    component: home,
-    hidden: true,
-  },
-  {
     path: "/login",
     component: login,
     name: "login",
@@ -28,12 +23,17 @@ const routes = [
     name: "mobileHome",
     meta: {
       title: "移动首页",
+      is_mobile: true,
     },
     hidden: true,
   },
   {
     path: "*",
     redirect: "/mobile",
+    meta: {
+      title: "移动首页",
+      is_mobile: true,
+    },
   },
 ];
 const asyncRouterMap = [
